@@ -13,8 +13,10 @@ declare(strict_types = 1);
 namespace Desperado\ServiceBus\MessageSerializer\Tests\Symfony;
 
 use Desperado\ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
+use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\Author;
 use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
 use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
+use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
 use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
 use PHPUnit\Framework\TestCase;
@@ -196,5 +198,29 @@ final class SymfonyMessageSerializerTest extends TestCase
         $data = $serializer->encode(ClassWithPrivateConstructor::create(100));
 
         $serializer->decode($data);
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function successFlow(): void
+    {
+        $serializer = new SymfonyMessageSerializer();
+
+        $object = TestMessage::create(
+            'message-serializer',
+            null,
+            'dev-master',
+            Author::create('Vasiya', 'Pupkin')
+        );
+
+        static::assertEquals(
+            $object,
+            $serializer->decode($serializer->encode($object))
+        );
     }
 }
