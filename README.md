@@ -9,7 +9,7 @@ A library that provides a basic implementation of message serialization (object 
 Currently implemented:
 * [Symfony Serialazer](https://github.com/mmasiukevich/message-serializer/blob/master/src/Symfony/SymfonyMessageSerializer.php): Supports normalization/denormalization of public/private properties; DateTime objects; Empty objects with closed constructor, etc. The description of property types is in the PHPDoc.
 
-Usage example ([@see test case](https://github.com/mmasiukevich/message-serializer/blob/master/tests/Symfony/SymfonyMessageSerializerTest.php#L210):
+Usage example ([@see test case](https://github.com/mmasiukevich/message-serializer/blob/master/tests/Symfony/SymfonyMessageSerializerTest.php#L210)):
 
 ```php
 $serializer = new SymfonyMessageSerializer();
