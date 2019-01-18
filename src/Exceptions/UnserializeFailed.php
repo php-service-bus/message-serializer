@@ -3,14 +3,14 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer\Exceptions;
+namespace ServiceBus\MessageSerializer\Exceptions;
 
 /**
  *

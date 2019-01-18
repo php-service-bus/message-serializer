@@ -3,18 +3,20 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer;
+namespace ServiceBus\MessageSerializer;
 
+use ServiceBus\Common\Messages\Message;
 
-use Desperado\ServiceBus\Common\Messages\Message;
-
+/**
+ *
+ */
 interface MessageDecoder
 {
     /**
@@ -24,7 +26,7 @@ interface MessageDecoder
      *
      * @return Message
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     * @throws \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      */
     public function decode(string $serializedMessage): Message;
 
@@ -36,7 +38,7 @@ interface MessageDecoder
      *
      * @return object
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
+     * @throws \ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
      */
     public function denormalize(array $payload, string $class): object;
 }

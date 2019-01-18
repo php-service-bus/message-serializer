@@ -3,14 +3,14 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer;
+namespace ServiceBus\MessageSerializer;
 
 /**
  *
@@ -22,7 +22,7 @@ interface Serializer
      *
      * @param array<array-key, mixed> $payload
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\SerializationFailed
+     * @throws \ServiceBus\MessageSerializer\Exceptions\SerializationFailed
      *
      * @return string
      */
@@ -35,7 +35,7 @@ interface Serializer
      *
      * @return array<array-key, mixed>
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
+     * @throws \ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
      */
     public function unserialize(string $content): array;
 }

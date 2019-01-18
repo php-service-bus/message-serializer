@@ -3,28 +3,28 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer\Symfony;
+namespace ServiceBus\MessageSerializer\Symfony;
 
-use Desperado\ServiceBus\Common\Messages\Message;
-use Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
-use Desperado\ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
-use Desperado\ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
-use Desperado\ServiceBus\MessageSerializer\Exceptions\NormalizationFailed;
-use Desperado\ServiceBus\MessageSerializer\JsonSerializer;
-use Desperado\ServiceBus\MessageSerializer\MessageDecoder;
-use Desperado\ServiceBus\MessageSerializer\MessageEncoder;
-use Desperado\ServiceBus\MessageSerializer\Serializer;
-use Desperado\ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataDenormalizer;
-use Desperado\ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataNormalizer;
-use Desperado\ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNameConverter;
-use Desperado\ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNormalizerWrapper;
+use ServiceBus\Common\Messages\Message;
+use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
+use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
+use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
+use ServiceBus\MessageSerializer\Exceptions\NormalizationFailed;
+use ServiceBus\MessageSerializer\JsonSerializer;
+use ServiceBus\MessageSerializer\MessageDecoder;
+use ServiceBus\MessageSerializer\MessageEncoder;
+use ServiceBus\MessageSerializer\Serializer;
+use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataDenormalizer;
+use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataNormalizer;
+use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNameConverter;
+use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNormalizerWrapper;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer as SymfonySerializer;
 

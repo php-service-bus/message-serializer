@@ -3,16 +3,16 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
+namespace ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
 
-use function Desperado\ServiceBus\Common\createWithoutConstructor;
+use function ServiceBus\Common\createWithoutConstructor;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -25,7 +25,7 @@ final class EmptyDataDenormalizer implements DenormalizerInterface
      *
      * {@inheritdoc}
      *
-     * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
+     * @throws \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
      */
     public function denormalize($data, $class, $format = null, array $context = []): object
     {

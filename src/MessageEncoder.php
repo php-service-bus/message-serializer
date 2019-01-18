@@ -3,16 +3,16 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer;
+namespace ServiceBus\MessageSerializer;
 
-use Desperado\ServiceBus\Common\Messages\Message;
+use ServiceBus\Common\Messages\Message;
 
 /**
  * Encoding a message into a string
@@ -26,7 +26,7 @@ interface MessageEncoder
      *
      * @return string
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
+     * @throws \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
      */
     public function encode(Message $message): string;
 
@@ -37,7 +37,7 @@ interface MessageEncoder
      *
      * @return array<string, mixed>
      *
-     * @throws \Desperado\ServiceBus\MessageSerializer\Exceptions\NormalizationFailed Unexpected normalize result
+     * @throws \ServiceBus\MessageSerializer\Exceptions\NormalizationFailed Unexpected normalize result
      */
     public function normalize(object $message): array;
 }

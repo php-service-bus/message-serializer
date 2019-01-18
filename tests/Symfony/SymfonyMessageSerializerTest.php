@@ -3,22 +3,22 @@
 /**
  * PHP Service Bus (publish-subscribe pattern implementation) serializer component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\MessageSerializer\Tests\Symfony;
+namespace ServiceBus\MessageSerializer\Tests\Symfony;
 
-use Desperado\ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\Author;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
-use Desperado\ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
+use ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
+use ServiceBus\MessageSerializer\Tests\Stubs\Author;
+use ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
+use ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
+use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
+use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
+use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -71,7 +71,7 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      * @expectedExceptionMessage Class "SomeClass" not found
      *
      * @return void
@@ -83,7 +83,7 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      * @expectedExceptionMessage The serialized data must contains a "namespace" field (indicates the message class)
      *                           and "message" (indicates the message parameters)
      *
@@ -96,7 +96,7 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      * @expectedExceptionMessage The serialized data must contains a "namespace" field (indicates the message class)
      *                           and "message" (indicates the message parameters)
      *
@@ -150,7 +150,7 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
      * @expectedExceptionMessage Class Qwerty does not exist
      *
      * @return void
@@ -164,7 +164,7 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
      * @expectedExceptionMessage JSON serialize failed: Malformed UTF-8 characters, possibly incorrectly encoded
      *
      * @return void
@@ -182,9 +182,9 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      * @expectedExceptionMessage The type of the "value" attribute for class
-     *                           "Desperado\ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor"
+     *                           "ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor"
      *                           must be one of "string" ("integer" given)
      *
      * @return void

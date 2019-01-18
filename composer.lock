@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b9a0a746df6ca6ab50686e3a91666cf",
-    "content-hash": "bacdce1f3b4274818f49ac145342c606",
+    "hash": "f95a9eec764a0b1c70594673f3df4351",
+    "content-hash": "16cea7b7c7e1b9a9746fbcea108cdcaa",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -130,52 +130,6 @@
             "time": "2014-09-09 13:34:57"
         },
         {
-            "name": "mmasiukevich/common",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mmasiukevich/common.git",
-                "reference": "d57f6bfd51de1dcabc7bd5ce6addbeba5e7a9a87"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mmasiukevich/common/zipball/d57f6bfd51de1dcabc7bd5ce6addbeba5e7a9a87",
-                "reference": "d57f6bfd51de1dcabc7bd5ce6addbeba5e7a9a87",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "ramsey/uuid": "^3.7"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7",
-                "vimeo/psalm": "^3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Desperado\\ServiceBus\\Common\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Masiukevich Maksim",
-                    "email": "desperado@minsk-info.ru",
-                    "homepage": "https://github.com/mmasiukevich",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Service Bus common component",
-            "time": "2019-01-18 08:23:49"
-        },
-        {
             "name": "paragonie/random_compat",
             "version": "v9.99.99",
             "source": {
@@ -219,6 +173,59 @@
                 "random"
             ],
             "time": "2018-07-02 15:55:56"
+        },
+        {
+            "name": "php-service-bus/common",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-service-bus/common.git",
+                "reference": "980ac9f30b12b19d464d940632421e1551558575"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/980ac9f30b12b19d464d940632421e1551558575",
+                "reference": "980ac9f30b12b19d464d940632421e1551558575",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "ramsey/uuid": "^3.7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7",
+                "vimeo/psalm": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ServiceBus\\Common\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Masiukevich Maksim",
+                    "email": "dev@async-php.com",
+                    "homepage": "https://github.com/mmasiukevich",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "PHP Service Bus common component",
+            "keywords": [
+                "async-php",
+                "command-bus",
+                "cqrs",
+                "event-sourcing",
+                "messaging"
+            ],
+            "time": "2019-01-18 20:07:10"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -557,7 +564,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2992,7 +2999,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "mmasiukevich/common": 20
+        "php-service-bus/common": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

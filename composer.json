@@ -1,12 +1,12 @@
 {
-  "name": "mmasiukevich/message-serializer",
+  "name": "php-service-bus/message-serializer",
   "description": "PHP Service Bus (publish-subscribe pattern) messages serializer component",
   "type": "library",
-  "keywords": [],
+  "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
   "authors": [
     {
       "name": "Masiukevich Maksim",
-      "email": "desperado@minsk-info.ru",
+      "email": "dev@async-php.com",
       "homepage": "https://github.com/mmasiukevich",
       "role": "Developer"
     }
@@ -14,19 +14,19 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Desperado\\ServiceBus\\MessageSerializer\\": "src/"
+      "ServiceBus\\MessageSerializer\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Desperado\\ServiceBus\\MessageSerializer\\Tests\\": "tests/"
+      "ServiceBus\\MessageSerializer\\Tests\\": "tests/"
     }
   },
   "require": {
     "php": ">=7.2",
     "ext-json": "*",
     "symfony/serializer-pack": "^v1",
-    "mmasiukevich/common": "dev-master"
+    "php-service-bus/common": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",
