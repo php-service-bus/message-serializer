@@ -7,7 +7,7 @@
 A library that provides a basic implementation of message serialization (object -> JSON -> object) for [service-bus](https://github.com/mmasiukevich/service-bus) framework
 
 Currently implemented:
-* [Symfony Serialazer](https://github.com/mmasiukevich/message-serializer/blob/master/src/Symfony/SymfonyMessageSerializer.php): Supports normalization/denormalization of public/private properties; DateTime objects; Empty objects with closed constructor. The description of property types is in the PHPDoc.
+* [Symfony Serialazer](https://github.com/mmasiukevich/message-serializer/blob/master/src/Symfony/SymfonyMessageSerializer.php): Supports normalization/denormalization of public/private properties; DateTime objects; Empty objects with closed constructor, etc. The description of property types is in the PHPDoc.
 
 Usage example ([@see test case](https://github.com/mmasiukevich/message-serializer/blob/master/tests/Symfony/SymfonyMessageSerializerTest.php#L210):
 
