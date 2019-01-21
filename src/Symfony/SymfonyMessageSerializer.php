@@ -51,10 +51,10 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
      * @noinspection PhpDocMissingThrowsInspection
      * @noinspection PhpDocSignatureInspection
      *
-     * @param Serializer $serializer
-     * @param object     ...$normalizers NormalizerInterface[] or/and DenormalizerInterface[] implementation
+     * @param Serializer                                                                                              $serializer
+     * @param SymfonySerializer\Normalizer\NormalizerInterface[]|SymfonySerializer\Normalizer\DenormalizerInterface[] $normalizers
      */
-    public function __construct(Serializer $serializer = null, object ...$normalizers)
+    public function __construct(Serializer $serializer = null, array $normalizers = [])
     {
         /** @noinspection PhpUnhandledExceptionInspection */
         $defaultNormalizers = [
