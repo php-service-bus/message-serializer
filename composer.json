@@ -1,6 +1,6 @@
 {
   "name": "php-service-bus/message-serializer",
-  "description": "PHP Service Bus (publish-subscribe pattern) messages serializer component",
+  "description": "PHP Service Bus messages serializer component",
   "type": "library",
   "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
   "authors": [

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * PHP Service Bus serializer component
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
