@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * Messages serializer implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -45,7 +45,7 @@ final class JsonSerializer implements Serializer
 
         $lastResultCode = \json_last_error();
 
-        if(\JSON_ERROR_NONE === $lastResultCode)
+        if(false !== $encoded && \JSON_ERROR_NONE === $lastResultCode)
         {
             return $encoded;
         }

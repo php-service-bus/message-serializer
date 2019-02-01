@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * Messages serializer implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -159,6 +159,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function denormalizeToUnknownClass(): void
     {
+        /** @noinspection PhpUndefinedClassInspection */
         (new SymfonyMessageSerializer())->denormalize([], \Qwerty::class);
     }
 

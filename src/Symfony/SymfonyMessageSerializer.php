@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * Messages serializer implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -144,6 +144,8 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             if(true === \is_array($data))
             {
+                /** @var array<string, mixed> $data */
+
                 return $data;
             }
 

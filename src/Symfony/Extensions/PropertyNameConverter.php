@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * Messages serializer implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -41,16 +41,16 @@ final class PropertyNameConverter implements NameConverterInterface
     {
         if(false === isset($this->cache[$propertyName]))
         {
-            $this->localStorage[$propertyName] = \lcfirst(
-                \preg_replace_callback(
-                    '/_(.?)/',
-                    static function(array $matches): string
-                    {
-                        return \ucfirst((string) $matches[1]);
-                    },
-                    $propertyName
-                )
+            $joinedString = \preg_replace_callback(
+                '/_(.?)/',
+                static function(array $matches): string
+                {
+                    return \ucfirst((string) $matches[1]);
+                },
+                $propertyName
             );
+
+            $this->localStorage[$propertyName] = \lcfirst((string ) $joinedString);
         }
 
         return $this->localStorage[$propertyName];

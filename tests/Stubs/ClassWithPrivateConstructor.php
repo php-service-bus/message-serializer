@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) serializer component
+ * Messages serializer implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -39,6 +39,7 @@ final class ClassWithPrivateConstructor implements Message
      */
     private function __construct($value)
     {
+        /** @noinspection UnusedConstructorDependenciesInspection */
         $this->value = $value;
     }
 }

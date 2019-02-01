@@ -14,9 +14,15 @@
     </php>
 
     <testsuites>
-        <testsuite name="Service Bus serializer">
+
+        <testsuite name="Service Bus common">
+            <directory>./vendor/php-service-bus/common/tests</directory>
+        </testsuite>
+
+        <testsuite name="Messages serializer">
             <directory>./tests/</directory>
         </testsuite>
+
     </testsuites>
 
     <filter>
