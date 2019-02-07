@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab364da096c3839050d82862ab4a9916",
-    "content-hash": "facab4f4f10d8c737c022e9b22058a19",
+    "hash": "786ea4fa1b61cb2d328a8580e1a09477",
+    "content-hash": "0fa079e0365325a1399c8ec2be67edf1",
     "packages": [
         {
             "name": "amphp/amp",
@@ -252,16 +252,16 @@
         },
         {
             "name": "php-service-bus/common",
-            "version": "dev-master",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "7945f503f01e94d083bfb3784e7717922b3ccbe4"
+                "reference": "4832b5b1cf702eac55edddfdb62325aa20d5ba11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/7945f503f01e94d083bfb3784e7717922b3ccbe4",
-                "reference": "7945f503f01e94d083bfb3784e7717922b3ccbe4",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/4832b5b1cf702eac55edddfdb62325aa20d5ba11",
+                "reference": "4832b5b1cf702eac55edddfdb62325aa20d5ba11",
                 "shasum": ""
             },
             "require": {
@@ -272,7 +272,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^7",
                 "symfony/dependency-injection": "^v4.2",
-                "vimeo/psalm": "dev-master"
+                "vimeo/psalm": "^3"
             },
             "type": "library",
             "autoload": {
@@ -301,7 +301,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-01-31 15:29:38"
+            "time": "2019-02-07 11:11:38"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -539,16 +539,16 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.2.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
-                "reference": "9f64271222922ef1a10e43f77d88baf72bf22b0e"
+                "reference": "275e54941a4f17a471c68d2a00e2513fc1fd4a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/inflector/zipball/9f64271222922ef1a10e43f77d88baf72bf22b0e",
-                "reference": "9f64271222922ef1a10e43f77d88baf72bf22b0e",
+                "url": "https://api.github.com/repos/symfony/inflector/zipball/275e54941a4f17a471c68d2a00e2513fc1fd4a78",
+                "reference": "275e54941a4f17a471c68d2a00e2513fc1fd4a78",
                 "shasum": ""
             },
             "require": {
@@ -593,7 +593,7 @@
                 "symfony",
                 "words"
             ],
-            "time": "2019-01-03 09:07:35"
+            "time": "2019-01-16 20:31:39"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -655,16 +655,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.2.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "a21d40670000f61a1a4b90a607d54696aad914cd"
+                "reference": "4768734a803c4471b7a733bd13698d91dd0cf193"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/a21d40670000f61a1a4b90a607d54696aad914cd",
-                "reference": "a21d40670000f61a1a4b90a607d54696aad914cd",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/4768734a803c4471b7a733bd13698d91dd0cf193",
+                "reference": "4768734a803c4471b7a733bd13698d91dd0cf193",
                 "shasum": ""
             },
             "require": {
@@ -718,20 +718,20 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2019-01-05 16:37:49"
+            "time": "2019-01-16 20:31:39"
         },
         {
             "name": "symfony/property-info",
-            "version": "v4.2.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "cfb42283015c194d14917f4dc108df7efc63fa4a"
+                "reference": "a1cf176eb83a48c791fbc9f94140c5c971ec21e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/cfb42283015c194d14917f4dc108df7efc63fa4a",
-                "reference": "cfb42283015c194d14917f4dc108df7efc63fa4a",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/a1cf176eb83a48c791fbc9f94140c5c971ec21e0",
+                "reference": "a1cf176eb83a48c791fbc9f94140c5c971ec21e0",
                 "shasum": ""
             },
             "require": {
@@ -794,20 +794,20 @@
                 "type",
                 "validator"
             ],
-            "time": "2019-01-03 09:07:35"
+            "time": "2019-01-16 20:35:37"
         },
         {
             "name": "symfony/serializer",
-            "version": "v4.2.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "0e696a2a8ce2648a8b1074fc9aedd9fdd328ba77"
+                "reference": "95e63a14718cc0825ca2f9c2d85a7129d8f12f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/0e696a2a8ce2648a8b1074fc9aedd9fdd328ba77",
-                "reference": "0e696a2a8ce2648a8b1074fc9aedd9fdd328ba77",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/95e63a14718cc0825ca2f9c2d85a7129d8f12f13",
+                "reference": "95e63a14718cc0825ca2f9c2d85a7129d8f12f13",
                 "shasum": ""
             },
             "require": {
@@ -874,7 +874,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-03 09:07:35"
+            "time": "2019-01-29 09:49:29"
         },
         {
             "name": "symfony/serializer-pack",
@@ -2161,23 +2161,23 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "366541b989927187c4ca70490a35615d3fef2dce"
+                "reference": "720fcc7e9b5cf384ea68d9d930d480907a0c1a29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/366541b989927187c4ca70490a35615d3fef2dce",
-                "reference": "366541b989927187c4ca70490a35615d3fef2dce",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/720fcc7e9b5cf384ea68d9d930d480907a0c1a29",
+                "reference": "720fcc7e9b5cf384ea68d9d930d480907a0c1a29",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0",
+                "phpunit/phpunit": "^7.5 || ^8.0",
                 "symfony/process": "^2 || ^3.3 || ^4"
             },
             "type": "library",
@@ -2213,7 +2213,7 @@
                 "unidiff",
                 "unified diff"
             ],
-            "time": "2018-06-10 07:54:39"
+            "time": "2019-02-04 06:01:07"
         },
         {
             "name": "sebastian/environment",
@@ -2618,16 +2618,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522"
+                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522",
-                "reference": "b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522",
+                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
                 "shasum": ""
             },
             "require": {
@@ -2639,6 +2639,9 @@
                 "symfony/dependency-injection": "<3.4",
                 "symfony/process": "<3.3"
             },
+            "provide": {
+                "psr/log-implementation": "1.0"
+            },
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/config": "~3.4|~4.0",
@@ -2648,7 +2651,7 @@
                 "symfony/process": "~3.4|~4.0"
             },
             "suggest": {
-                "psr/log-implementation": "For using the console logger",
+                "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": "",
                 "symfony/lock": "",
                 "symfony/process": ""
@@ -2683,7 +2686,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-04 15:13:53"
+            "time": "2019-01-25 14:35:16"
         },
         {
             "name": "symfony/contracts",
@@ -2854,16 +2857,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "dev-master",
+            "version": "3.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "53756e7017cd250b80edbc377a2fa64cd89f9461"
+                "reference": "6d5c99545874de2cf167b88a993f5fda6783cef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/53756e7017cd250b80edbc377a2fa64cd89f9461",
-                "reference": "53756e7017cd250b80edbc377a2fa64cd89f9461",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/6d5c99545874de2cf167b88a993f5fda6783cef2",
+                "reference": "6d5c99545874de2cf167b88a993f5fda6783cef2",
                 "shasum": ""
             },
             "require": {
@@ -2927,7 +2930,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-02-01 02:18:00"
+            "time": "2019-02-05 13:02:06"
         },
         {
             "name": "webmozart/glob",
@@ -3025,15 +3028,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "php-service-bus/common": 20,
-        "vimeo/psalm": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": {
+        "ext-iconv": "*"
+    }
 }
