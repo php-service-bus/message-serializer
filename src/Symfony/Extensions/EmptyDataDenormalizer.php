@@ -29,6 +29,8 @@ final class EmptyDataDenormalizer implements DenormalizerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = []): object
     {
+        /** @psalm-var class-string $class */
+
         return createWithoutConstructor($class);
     }
 

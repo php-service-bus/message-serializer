@@ -34,9 +34,9 @@
     "php-service-bus/common": "^v3.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7",
+    "phpunit/phpunit": "^8",
     "ext-iconv": "*",
-    "vimeo/psalm": "^3"
+    "vimeo/psalm": "^v3"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",

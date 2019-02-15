@@ -12,6 +12,9 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer\Tests\Symfony;
 
+use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
+use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
+use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
 use ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
 use ServiceBus\MessageSerializer\Tests\Stubs\Author;
 use ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
@@ -71,39 +74,51 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
-     * @expectedExceptionMessage Class "SomeClass" not found
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function classNotFound(): void
     {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage('Class "SomeClass" not found');
+
         (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue', 'namespace' => \SomeClass::class]));
     }
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
-     * @expectedExceptionMessage The serialized data must contains a "namespace" field (indicates the message class)
-     *                           and "message" (indicates the message parameters)
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function withoutNamespace(): void
     {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage(
+            'The serialized data must contains a "namespace" field (indicates the message class) and "message" '
+            . '(indicates the message parameters)'
+        );
+
         (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue']));
     }
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
-     * @expectedExceptionMessage The serialized data must contains a "namespace" field (indicates the message class)
-     *                           and "message" (indicates the message parameters)
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function withoutPayload(): void
     {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage(
+            'The serialized data must contains a "namespace" field (indicates the message class) and "message" (indicates the message parameters)'
+        );
+
         (new SymfonyMessageSerializer())->decode(\json_encode(['namespace' => __CLASS__]));
     }
 
@@ -150,8 +165,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
-     * @expectedExceptionMessage Class Qwerty does not exist
      *
      * @return void
      *
@@ -159,14 +172,15 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function denormalizeToUnknownClass(): void
     {
+        $this->expectException(DenormalizeFailed::class);
+     $this->expectExceptionMessage('Class Qwerty does not exist');
+
         /** @noinspection PhpUndefinedClassInspection */
         (new SymfonyMessageSerializer())->denormalize([], \Qwerty::class);
     }
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
-     * @expectedExceptionMessage JSON serialize failed: Malformed UTF-8 characters, possibly incorrectly encoded
      *
      * @return void
      *
@@ -174,6 +188,9 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function withWrongCharset(): void
     {
+        $this->expectException(EncodeMessageFailed::class);
+        $this->expectExceptionMessage('JSON serialize failed: Malformed UTF-8 characters, possibly incorrectly encoded');
+
         (new SymfonyMessageSerializer())->encode(
             ClassWithPrivateConstructor::create(
                 \iconv('utf-8', 'windows-1251', 'тест')
@@ -183,10 +200,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
-     * @expectedExceptionMessage The type of the "value" attribute for class
-     *                           "ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor"
-     *                           must be one of "string" ("integer" given)
      *
      * @return void
      *
@@ -194,6 +207,14 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function withIncorrectType(): void
     {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage(
+            \sprintf(
+                'The type of the "value" attribute for class "%s" must be one of "string" ("integer" given)',
+                ClassWithPrivateConstructor::class
+            )
+        );
+
         $serializer = new SymfonyMessageSerializer();
 
         $data = $serializer->encode(ClassWithPrivateConstructor::create(100));
