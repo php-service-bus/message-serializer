@@ -22,6 +22,11 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 final class PropertyNormalizerWrapper extends PropertyNormalizer
 {
     /**
+     * @var array<string, array<array-key, string>>
+     */
+    private $localStorage = [];
+
+    /**
      * @inheritdoc
      *
      * @psalm-suppress MissingParamType Cannot specify data type
@@ -36,5 +41,24 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     ): object
     {
         return $reflectionClass->newInstanceWithoutConstructor();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param object      $object
+     * @param string|null $format
+     * @param array       $context
+     */
+    protected function extractAttributes($object, $format = null, array $context = []): array
+    {
+        $class = \get_class($object);
+
+        if(false === isset($this->localStorage[$class]))
+        {
+            $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
+        }
+
+        return $this->localStorage[$class];
     }
 }

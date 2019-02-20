@@ -20,6 +20,11 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class EmptyDataNormalizer implements NormalizerInterface
 {
     /**
+     * @var array<string, array<array-key, string>>
+     */
+    private $localStorage = [];
+
+    /**
      * @inheritdoc
      */
     public function normalize($object, $format = null, array $context = [])
@@ -36,9 +41,23 @@ final class EmptyDataNormalizer implements NormalizerInterface
     {
         if(true === \is_object($data))
         {
-            return 0 === \count((new \ReflectionClass($data))->getProperties());
+            $class = \get_class($data);
+
+            if(false === isset($this->localStorage[$class]))
+            {
+                $this->localStorage[$class] = \array_map(
+                    static function(\ReflectionProperty $property): string
+                    {
+                        return (string) $property->name;
+                    },
+                    (new \ReflectionClass($data))->getProperties()
+                );
+            }
+
+            return empty($this->localStorage[$class]);
         }
 
         return false;
     }
+
 }

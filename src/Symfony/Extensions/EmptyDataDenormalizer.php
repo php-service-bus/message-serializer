@@ -41,6 +41,6 @@ final class EmptyDataDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return \is_array($data) && 0 === \count($data);
+        return empty($data);
     }
 }
