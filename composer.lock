@@ -256,12 +256,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "dc30e3c39819ef8ae870255dddada0cae759abb4"
+                "reference": "4ccdfc1d92ea8dc2ca064d76bdaca94a88125258"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/dc30e3c39819ef8ae870255dddada0cae759abb4",
-                "reference": "dc30e3c39819ef8ae870255dddada0cae759abb4",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/4ccdfc1d92ea8dc2ca064d76bdaca94a88125258",
+                "reference": "4ccdfc1d92ea8dc2ca064d76bdaca94a88125258",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-25 13:48:55"
+            "time": "2019-02-25 14:24:39"
         },
         {
             "name": "phpdocumentor/reflection-common",
