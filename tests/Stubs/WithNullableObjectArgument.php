@@ -12,12 +12,10 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer\Tests\Stubs;
 
-use ServiceBus\Common\Messages\Message;
-
 /**
  *
  */
-final class WithNullableObjectArgument implements Message
+final class WithNullableObjectArgument
 {
     /**
      * @var string

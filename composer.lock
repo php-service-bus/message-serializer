@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d21a52ad0ac265e1c9ce86d696478232",
-    "content-hash": "e4e753c88d062ccaf6d58dca55cdbe62",
+    "hash": "e092c4fd51903fefff3e77b64447cdde",
+    "content-hash": "9db4049d9f460f32ee55980581cf6ac6",
     "packages": [
         {
             "name": "amphp/amp",
@@ -252,16 +252,16 @@
         },
         {
             "name": "php-service-bus/common",
-            "version": "v3.0.2",
+            "version": "v3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "71e9167bdec0e245cc77bc7fbb37c250481693ef"
+                "reference": "dc30e3c39819ef8ae870255dddada0cae759abb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/71e9167bdec0e245cc77bc7fbb37c250481693ef",
-                "reference": "71e9167bdec0e245cc77bc7fbb37c250481693ef",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/dc30e3c39819ef8ae870255dddada0cae759abb4",
+                "reference": "dc30e3c39819ef8ae870255dddada0cae759abb4",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-15 09:15:23"
+            "time": "2019-02-25 13:48:55"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -3029,7 +3029,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "php-service-bus/common": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer\Symfony;
 
-use ServiceBus\Common\Messages\Message;
 use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
@@ -75,7 +74,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     /**
      * @inheritDoc
      */
-    public function encode(Message $message): string
+    public function encode(object $message): string
     {
         try
         {
@@ -92,7 +91,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     /**
      * @inheritDoc
      */
-    public function decode(string $serializedMessage): Message
+    public function decode(string $serializedMessage): object
     {
         try
         {
@@ -101,7 +100,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             self::validateUnserializedData($data);
 
-            /** @var Message $object */
+            /** @var object $object */
             $object = $this->denormalize($data['message'], $data['namespace']);
 
             return $object;

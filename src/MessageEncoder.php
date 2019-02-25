@@ -12,8 +12,6 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer;
 
-use ServiceBus\Common\Messages\Message;
-
 /**
  * Encoding a message into a string
  */
@@ -22,13 +20,13 @@ interface MessageEncoder
     /**
      * Encode message to string
      *
-     * @param Message $message
+     * @param object $message
      *
      * @return string
      *
      * @throws \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
      */
-    public function encode(Message $message): string;
+    public function encode(object $message): string;
 
     /**
      * Convert object to array

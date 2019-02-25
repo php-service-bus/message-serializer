@@ -12,8 +12,6 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer;
 
-use ServiceBus\Common\Messages\Message;
-
 /**
  *
  */
@@ -24,11 +22,11 @@ interface MessageDecoder
      *
      * @param string $serializedMessage
      *
-     * @return Message
+     * @return object
      *
      * @throws \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
      */
-    public function decode(string $serializedMessage): Message;
+    public function decode(string $serializedMessage): object;
 
     /**
      * Convert array to specified object

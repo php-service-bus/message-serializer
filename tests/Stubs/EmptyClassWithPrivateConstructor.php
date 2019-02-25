@@ -12,12 +12,10 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer\Tests\Stubs;
 
-use ServiceBus\Common\Messages\Message;
-
 /**
  *
  */
-final class EmptyClassWithPrivateConstructor implements Message
+final class EmptyClassWithPrivateConstructor
 {
     /**
      * @return self
