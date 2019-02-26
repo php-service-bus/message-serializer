@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e092c4fd51903fefff3e77b64447cdde",
-    "content-hash": "9db4049d9f460f32ee55980581cf6ac6",
+    "hash": "0fb197da7d7f5c1a6664b52317e54e57",
+    "content-hash": "8df4219fe290a2144e78c3a0d4654d22",
     "packages": [
         {
             "name": "amphp/amp",
@@ -252,16 +252,16 @@
         },
         {
             "name": "php-service-bus/common",
-            "version": "v3.0.x-dev",
+            "version": "v3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "d3b1b081a08e2656dcdb4ccb242b4e18abe74bdf"
+                "reference": "2290f2e66b7ea0718a7afccdbcc4d7928e001205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/d3b1b081a08e2656dcdb4ccb242b4e18abe74bdf",
-                "reference": "d3b1b081a08e2656dcdb4ccb242b4e18abe74bdf",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/2290f2e66b7ea0718a7afccdbcc4d7928e001205",
+                "reference": "2290f2e66b7ea0718a7afccdbcc4d7928e001205",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-26 07:22:23"
+            "time": "2019-02-26 13:01:39"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "7.0.2",
+            "version": "7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "cfca9c5f7f2694ca0c7749ffb142927d9f05250f"
+                "reference": "0317a769a81845c390e19684d9ba25d7f6aa4707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/cfca9c5f7f2694ca0c7749ffb142927d9f05250f",
-                "reference": "cfca9c5f7f2694ca0c7749ffb142927d9f05250f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0317a769a81845c390e19684d9ba25d7f6aa4707",
+                "reference": "0317a769a81845c390e19684d9ba25d7f6aa4707",
                 "shasum": ""
             },
             "require": {
@@ -1727,7 +1727,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-02-15 13:40:27"
+            "time": "2019-02-26 07:38:26"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3029,9 +3029,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "php-service-bus/common": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
