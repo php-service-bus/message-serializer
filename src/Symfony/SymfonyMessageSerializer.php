@@ -64,7 +64,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             new EmptyDataNormalizer()
         ];
 
-        /** @var array<array-key, (\Symfony\Component\Serializer\Normalizer\NormalizerInterface|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface)> $normalizers */
+        /** @psalm-var array<array-key, (\Symfony\Component\Serializer\Normalizer\NormalizerInterface|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface)> $normalizers */
         $normalizers = \array_merge($defaultNormalizers, $normalizers);
 
         $this->normalizer = new SymfonySerializer\Serializer($normalizers);
@@ -95,7 +95,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     {
         try
         {
-            /** @var array{message:array<string, string|int|float|null>, namespace:class-string} $data */
+            /** @psalm-var array{message:array<string, string|int|float|null>, namespace:class-string} $data */
             $data = $this->serializer->unserialize($serializedMessage);
 
             self::validateUnserializedData($data);
@@ -143,7 +143,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             if(true === \is_array($data))
             {
-                /** @var array<string, mixed> $data */
+                /** @psalm-var array<string, mixed> $data */
 
                 return $data;
             }

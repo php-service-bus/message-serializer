@@ -25,7 +25,7 @@ final class EmptyDataDenormalizer implements DenormalizerInterface
      *
      * {@inheritdoc}
      *
-     * @throws \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
+     * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
      */
     public function denormalize($data, $class, $format = null, array $context = []): object
     {

@@ -66,7 +66,7 @@ final class JsonSerializer implements Serializer
         /** Clear last error */
         \json_last_error();
 
-        /** @var array<string, string|int|float|null> $decoded */
+        /** @psalm-var array<string, string|int|float|null> $decoded */
         $decoded = \json_decode($content, true);
 
         $lastResultCode = \json_last_error();

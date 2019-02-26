@@ -20,7 +20,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class EmptyDataNormalizer implements NormalizerInterface
 {
     /**
-     * @var array<string, array<array-key, string>>
+     * @psalm-var array<string, array<array-key, string>>
+     * @var array
      */
     private $localStorage = [];
 

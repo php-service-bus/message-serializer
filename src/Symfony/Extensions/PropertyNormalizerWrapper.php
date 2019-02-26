@@ -22,7 +22,8 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 final class PropertyNormalizerWrapper extends PropertyNormalizer
 {
     /**
-     * @var array<string, array<array-key, string>>
+     * @psalm-var array<string, array<array-key, string>>
+     * @var array
      */
     private $localStorage = [];
 
