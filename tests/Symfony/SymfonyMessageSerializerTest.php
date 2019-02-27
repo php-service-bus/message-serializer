@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer\Tests\Symfony;
 
+use PHPUnit\Framework\TestCase;
 use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
@@ -22,7 +23,6 @@ use ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
 use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
-use PHPUnit\Framework\TestCase;
 
 /**
  *
@@ -32,9 +32,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function emptyClassWithClosedConstructor(): void
     {
@@ -51,33 +51,33 @@ final class SymfonyMessageSerializerTest extends TestCase
         static::assertEmpty($data['message']);
         static::assertSame(EmptyClassWithPrivateConstructor::class, $data['namespace']);
 
-        static::assertEquals($object, $serializer->decode($encoded));
+        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($encoded)));
     }
 
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public static function classWithClosedConstructor(): void
     {
         $serializer = new SymfonyMessageSerializer();
         $object     = ClassWithPrivateConstructor::create(__METHOD__);
 
-        static::assertEquals(
-            $object,
-            $serializer->decode($serializer->encode($object))
+        static::assertSame(
+            \get_object_vars($object),
+            \get_object_vars($serializer->decode($serializer->encode($object)))
         );
     }
 
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function classNotFound(): void
     {
@@ -90,9 +90,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withoutNamespace(): void
     {
@@ -108,9 +108,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withoutPayload(): void
     {
@@ -125,9 +125,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withDateTime(): void
     {
@@ -137,7 +137,7 @@ final class SymfonyMessageSerializerTest extends TestCase
         /** @var WithDateTimeField $result */
         $result = $serializer->decode($serializer->encode($object));
 
-        static::assertEquals(
+        static::assertSame(
             $object->dateTimeValue->format('Y-m-d H:i:s'),
             $result->dateTimeValue->format('Y-m-d H:i:s')
         );
@@ -146,9 +146,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function wthNullableObjectArgument(): void
     {
@@ -156,19 +156,19 @@ final class SymfonyMessageSerializerTest extends TestCase
 
         $object = WithNullableObjectArgument::withObject('qwerty', ClassWithPrivateConstructor::create('qqq'));
 
-        static::assertEquals($object, $serializer->decode($serializer->encode($object)));
+        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($serializer->encode($object))));
 
         $object = WithNullableObjectArgument::withoutObject('qwerty');
 
-        static::assertEquals($object, $serializer->decode($serializer->encode($object)));
+        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($serializer->encode($object))));
     }
 
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function denormalizeToUnknownClass(): void
     {
@@ -182,9 +182,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withWrongCharset(): void
     {
@@ -201,9 +201,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withIncorrectType(): void
     {
@@ -225,9 +225,9 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function successFlow(): void
     {
@@ -240,9 +240,9 @@ final class SymfonyMessageSerializerTest extends TestCase
             Author::create('Vasiya', 'Pupkin')
         );
 
-        static::assertEquals(
-            $object,
-            $serializer->decode($serializer->encode($object))
+        static::assertSame(
+            \get_object_vars($object),
+            \get_object_vars($serializer->decode($serializer->encode($object)))
         );
     }
 }

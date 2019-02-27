@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -13,29 +13,31 @@ declare(strict_types = 1);
 namespace ServiceBus\MessageSerializer;
 
 /**
- * Encoding a message into a string
+ * Encoding a message into a string.
  */
 interface MessageEncoder
 {
     /**
-     * Encode message to string
+     * Encode message to string.
      *
      * @param object $message
      *
-     * @return string
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
+     *
+     * @return string
      */
     public function encode(object $message): string;
 
     /**
-     * Convert object to array
+     * Convert object to array.
+     *
+     * @psalm-return array<string, mixed>
      *
      * @param object $message
      *
-     * @return array<string, mixed>
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\NormalizationFailed Unexpected normalize result
+     *
+     * @return array
      */
     public function normalize(object $message): array;
 }

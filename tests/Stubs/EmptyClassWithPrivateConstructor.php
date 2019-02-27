@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -27,6 +27,5 @@ final class EmptyClassWithPrivateConstructor
 
     private function __construct()
     {
-
     }
 }

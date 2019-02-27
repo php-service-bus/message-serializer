@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -18,7 +18,7 @@ namespace ServiceBus\MessageSerializer;
 interface Serializer
 {
     /**
-     * Serialize data
+     * Serialize data.
      *
      * @param array<array-key, mixed> $payload
      *
@@ -29,13 +29,14 @@ interface Serializer
     public function serialize(array $payload): string;
 
     /**
-     * Unserialize data
+     * Unserialize data.
      *
      * @param string $content
      *
+     * @throws \ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
+     *
      * @return array<array-key, mixed>
      *
-     * @throws \ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
      */
     public function unserialize(string $content): array;
 }

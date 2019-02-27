@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -16,7 +16,7 @@ use function ServiceBus\Common\createWithoutConstructor;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Denormalizer for an object without attributes (empty)
+ * Denormalizer for an object without attributes (empty).
  */
 final class EmptyDataDenormalizer implements DenormalizerInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -30,11 +30,11 @@ final class JsonSerializer implements Serializer
         \JSON_ERROR_INF_OR_NAN            => 'One or more NAN or INF values in the value to be encoded',
         \JSON_ERROR_UNSUPPORTED_TYPE      => 'A value of a type that cannot be encoded was given',
         \JSON_ERROR_INVALID_PROPERTY_NAME => 'A property name that cannot be encoded was given',
-        \JSON_ERROR_UTF16                 => 'Malformed UTF-16 characters, possibly incorrectly encoded'
+        \JSON_ERROR_UTF16                 => 'Malformed UTF-16 characters, possibly incorrectly encoded',
     ];
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function serialize(array $payload): string
     {
@@ -45,7 +45,7 @@ final class JsonSerializer implements Serializer
 
         $lastResultCode = \json_last_error();
 
-        if(false !== $encoded && \JSON_ERROR_NONE === $lastResultCode)
+        if (false !== $encoded && \JSON_ERROR_NONE === $lastResultCode)
         {
             return $encoded;
         }
@@ -59,7 +59,7 @@ final class JsonSerializer implements Serializer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function unserialize(string $content): array
     {
@@ -71,7 +71,7 @@ final class JsonSerializer implements Serializer
 
         $lastResultCode = \json_last_error();
 
-        if(\JSON_ERROR_NONE === $lastResultCode)
+        if (\JSON_ERROR_NONE === $lastResultCode)
         {
             return $decoded;
         }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -15,20 +15,21 @@ namespace ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
- * Convert snake_case to lowerCamelCase
+ * Convert snake_case to lowerCamelCase.
  */
 final class PropertyNameConverter implements NameConverterInterface
 {
     /**
-     * Local cache
+     * Local cache.
      *
      * @psalm-var array<string, string>
+     *
      * @var array
      */
     private $localStorage;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($propertyName): string
     {
@@ -36,11 +37,11 @@ final class PropertyNameConverter implements NameConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($propertyName): string
     {
-        if(false === isset($this->localStorage[$propertyName]))
+        if (false === isset($this->localStorage[$propertyName]))
         {
             $joinedString = \preg_replace_callback(
                 '/_(.?)/',
@@ -51,7 +52,7 @@ final class PropertyNameConverter implements NameConverterInterface
                 $propertyName
             );
 
-            $this->localStorage[$propertyName] = \lcfirst((string ) $joinedString);
+            $this->localStorage[$propertyName] = \lcfirst((string) $joinedString);
         }
 
         return $this->localStorage[$propertyName];

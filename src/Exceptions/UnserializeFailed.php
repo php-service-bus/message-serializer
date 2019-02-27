@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -17,5 +17,4 @@ namespace ServiceBus\MessageSerializer\Exceptions;
  */
 final class UnserializeFailed extends \RuntimeException implements SerializerExceptionMarker
 {
-
 }

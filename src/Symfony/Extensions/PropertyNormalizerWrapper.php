@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -15,7 +15,7 @@ namespace ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 
 /**
- * Disable the use of the constructor
+ * Disable the use of the constructor.
  *
  * @noinspection LongInheritanceChainInspection
  */
@@ -23,12 +23,13 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 {
     /**
      * @psalm-var array<string, array<array-key, string>>
+     *
      * @var array
      */
     private $localStorage = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress MissingParamType Cannot specify data type
      */
@@ -39,13 +40,12 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         \ReflectionClass $reflectionClass,
         $allowedAttributes,
         string $format = null
-    ): object
-    {
+    ): object {
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @param object      $object
      * @param string|null $format
@@ -55,7 +55,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     {
         $class = \get_class($object);
 
-        if(false === isset($this->localStorage[$class]))
+        if (false === isset($this->localStorage[$class]))
         {
             $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
         }

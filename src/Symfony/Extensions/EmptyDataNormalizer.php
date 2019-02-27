@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -15,18 +15,19 @@ namespace ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
- * Normalizer for an object without attributes (empty)
+ * Normalizer for an object without attributes (empty).
  */
 final class EmptyDataNormalizer implements NormalizerInterface
 {
     /**
      * @psalm-var array<string, array<array-key, string>>
+     *
      * @var array
      */
     private $localStorage = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -34,17 +35,17 @@ final class EmptyDataNormalizer implements NormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \ReflectionException
      */
     public function supportsNormalization($data, $format = null): bool
     {
-        if(true === \is_object($data))
+        if (true === \is_object($data))
         {
             $class = \get_class($data);
 
-            if(false === isset($this->localStorage[$class]))
+            if (false === isset($this->localStorage[$class]))
             {
                 $this->localStorage[$class] = \array_map(
                     static function(\ReflectionProperty $property): string
@@ -60,5 +61,4 @@ final class EmptyDataNormalizer implements NormalizerInterface
 
         return false;
     }
-
 }

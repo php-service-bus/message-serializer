@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Messages serializer implementation
+ * Messages serializer implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -18,25 +18,25 @@ namespace ServiceBus\MessageSerializer;
 interface MessageDecoder
 {
     /**
-     * Restore message from string
+     * Restore message from string.
      *
      * @param string $serializedMessage
      *
-     * @return object
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
+     *
+     * @return object
      */
     public function decode(string $serializedMessage): object;
 
     /**
-     * Convert array to specified object
+     * Convert array to specified object.
      *
      * @param array<string, mixed> $payload
      * @param string               $class
      *
-     * @return object
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
+     *
+     * @return object
      */
     public function denormalize(array $payload, string $class): object;
 }
