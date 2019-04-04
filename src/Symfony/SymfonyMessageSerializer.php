@@ -20,7 +20,6 @@ use ServiceBus\MessageSerializer\JsonSerializer;
 use ServiceBus\MessageSerializer\MessageDecoder;
 use ServiceBus\MessageSerializer\MessageEncoder;
 use ServiceBus\MessageSerializer\Serializer;
-use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataDenormalizer;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataNormalizer;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNameConverter;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNormalizerWrapper;
@@ -60,12 +59,11 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             new SymfonySerializer\Normalizer\DateTimeNormalizer(['datetime_format' => 'c']),
             new SymfonySerializer\Normalizer\ArrayDenormalizer(),
             new PropertyNormalizerWrapper(null, new PropertyNameConverter(), new PhpDocExtractor()),
-            new EmptyDataDenormalizer(),
             new EmptyDataNormalizer(),
         ];
 
         /** @psalm-var array<array-key, (\Symfony\Component\Serializer\Normalizer\NormalizerInterface|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface)> $normalizers */
-        $normalizers = \array_merge($defaultNormalizers, $normalizers);
+        $normalizers = \array_merge($normalizers, $defaultNormalizers);
 
         $this->normalizer = new SymfonySerializer\Serializer($normalizers);
         $this->serializer = $serializer ?? new JsonSerializer();
