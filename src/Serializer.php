@@ -20,7 +20,9 @@ interface Serializer
     /**
      * Serialize data.
      *
-     * @param array<array-key, mixed> $payload
+     * @psalm-param array<array-key, mixed> $payload
+     *
+     * @param array $payload
      *
      * @throws \ServiceBus\MessageSerializer\Exceptions\SerializationFailed
      *
@@ -31,12 +33,13 @@ interface Serializer
     /**
      * Unserialize data.
      *
+     * @psalm-return array<array-key, mixed>
+     *
      * @param string $content
      *
      * @throws \ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
      *
-     * @return array<array-key, mixed>
-     *
+     * @return array
      */
     public function unserialize(string $content): array;
 }

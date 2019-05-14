@@ -16,7 +16,7 @@ use ServiceBus\MessageSerializer\Exceptions\SerializationFailed;
 use ServiceBus\MessageSerializer\Exceptions\UnserializeFailed;
 
 /**
- *
+ * @todo: change version to php7.3
  */
 final class JsonSerializer implements Serializer
 {
@@ -53,7 +53,7 @@ final class JsonSerializer implements Serializer
         throw new SerializationFailed(
             \sprintf(
                 'JSON serialize failed: %s',
-                self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error'
+                (string) (self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error')
             )
         );
     }
@@ -79,7 +79,7 @@ final class JsonSerializer implements Serializer
         throw new UnserializeFailed(
             \sprintf(
                 'JSON unserialize failed: %s',
-                self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error'
+                (string) (self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error')
             )
         );
     }

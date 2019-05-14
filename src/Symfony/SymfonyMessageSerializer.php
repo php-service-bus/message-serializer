@@ -163,6 +163,8 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     }
 
     /**
+     * @psalm-param array{message:array<string, string|int|float|null>, namespace:class-string} $data
+     *
      * @param array $data
      *
      * @throws \UnexpectedValueException
@@ -181,7 +183,11 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             );
         }
 
-        /** Let's check if the specified class exists */
+        /**
+         * Let's check if the specified class exists.
+         *
+         * @psalm-suppress DocblockTypeContradiction
+         */
         if ('' === $data['namespace'] || false === \class_exists((string) $data['namespace']))
         {
             throw new \UnexpectedValueException(
