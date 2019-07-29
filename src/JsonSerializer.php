@@ -16,46 +16,30 @@ use ServiceBus\MessageSerializer\Exceptions\SerializationFailed;
 use ServiceBus\MessageSerializer\Exceptions\UnserializeFailed;
 
 /**
- * @todo: change version to php7.3
+ *
  */
 final class JsonSerializer implements Serializer
 {
-    private const JSON_ERRORS_MAPPING = [
-        \JSON_ERROR_DEPTH                 => 'The maximum stack depth has been exceeded',
-        \JSON_ERROR_STATE_MISMATCH        => 'Invalid or malformed JSON',
-        \JSON_ERROR_CTRL_CHAR             => 'Control character error, possibly incorrectly encoded',
-        \JSON_ERROR_SYNTAX                => 'Syntax error',
-        \JSON_ERROR_UTF8                  => 'Malformed UTF-8 characters, possibly incorrectly encoded',
-        \JSON_ERROR_RECURSION             => 'One or more recursive references in the value to be encoded',
-        \JSON_ERROR_INF_OR_NAN            => 'One or more NAN or INF values in the value to be encoded',
-        \JSON_ERROR_UNSUPPORTED_TYPE      => 'A value of a type that cannot be encoded was given',
-        \JSON_ERROR_INVALID_PROPERTY_NAME => 'A property name that cannot be encoded was given',
-        \JSON_ERROR_UTF16                 => 'Malformed UTF-16 characters, possibly incorrectly encoded',
-    ];
-
     /**
      * {@inheritdoc}
      */
     public function serialize(array $payload): string
     {
-        /** Clear last error */
-        \json_last_error();
-
-        $encoded = \json_encode($payload);
-
-        $lastResultCode = \json_last_error();
-
-        if (false !== $encoded && \JSON_ERROR_NONE === $lastResultCode)
+        try
         {
+            /** @var string $encoded */
+            $encoded = \json_encode($payload, \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
+
             return $encoded;
         }
-
-        throw new SerializationFailed(
-            \sprintf(
-                'JSON serialize failed: %s',
-                (string) (self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error')
-            )
-        );
+        catch(\Throwable $throwable)
+        {
+            throw new SerializationFailed(
+                \sprintf('JSON serialize failed: %s', $throwable->getMessage()),
+                (int) $throwable->getCode(),
+                $throwable
+            );
+        }
     }
 
     /**
@@ -63,24 +47,20 @@ final class JsonSerializer implements Serializer
      */
     public function unserialize(string $content): array
     {
-        /** Clear last error */
-        \json_last_error();
-
-        /** @psalm-var array<string, string|int|float|null> $decoded */
-        $decoded = \json_decode($content, true);
-
-        $lastResultCode = \json_last_error();
-
-        if (\JSON_ERROR_NONE === $lastResultCode)
+        try
         {
+            /** @psalm-var array<string, string|int|float|null> $decoded */
+            $decoded = \json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
+
             return $decoded;
         }
-
-        throw new UnserializeFailed(
-            \sprintf(
-                'JSON unserialize failed: %s',
-                (string) (self::JSON_ERRORS_MAPPING[$lastResultCode] ?? 'Unknown error')
-            )
-        );
+        catch(\Throwable $throwable)
+        {
+            throw new UnserializeFailed(
+                \sprintf('JSON unserialize failed: %s', $throwable->getMessage()),
+                (int) $throwable->getCode(),
+                $throwable
+            );
+        }
     }
 }
