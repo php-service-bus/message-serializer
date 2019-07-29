@@ -32,7 +32,7 @@ final class JsonSerializer implements Serializer
 
             return $encoded;
         }
-        catch(\Throwable $throwable)
+        catch (\Throwable $throwable)
         {
             throw new SerializationFailed(
                 \sprintf('JSON serialize failed: %s', $throwable->getMessage()),
@@ -54,7 +54,7 @@ final class JsonSerializer implements Serializer
 
             return $decoded;
         }
-        catch(\Throwable $throwable)
+        catch (\Throwable $throwable)
         {
             throw new UnserializeFailed(
                 \sprintf('JSON unserialize failed: %s', $throwable->getMessage()),
