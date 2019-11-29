@@ -26,7 +26,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     private array
 
- $localStorage = [];
+        $localStorage = [];
 
     /**
      * {@inheritdoc}
@@ -40,7 +40,8 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         \ReflectionClass $reflectionClass,
         $allowedAttributes,
         string $format = null
-    ): object {
+    ): object
+    {
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
@@ -51,11 +52,44 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     {
         $class = \get_class($object);
 
-        if (false === isset($this->localStorage[$class]))
+        if(false === isset($this->localStorage[$class]))
         {
-            $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
+            $this->localStorage[$class] = [];
+
+            foreach(\get_object_vars($object) as $key => $value)
+            {
+                $this->localStorage[$class][] = $key;
+            }
         }
 
         return $this->localStorage[$class];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
+    {
+        if(isset($object->{$attribute}) === true)
+        {
+            return $object->{$attribute};
+        }
+
+        return parent::getAttributeValue($object, $attribute, $format, $context);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = [])
+    {
+        if(isset($object->{$attribute}) === true)
+        {
+            $object->{$attribute} = $value;
+        }
+        else
+        {
+            parent::setAttributeValue($object, $attribute, $value, $format, $context);
+        }
     }
 }

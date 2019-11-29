@@ -18,6 +18,7 @@ use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
 use ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
 use ServiceBus\MessageSerializer\Tests\Stubs\Author;
+use ServiceBus\MessageSerializer\Tests\Stubs\AuthorCollection;
 use ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
 use ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
 use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
@@ -185,28 +186,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      *
      * @throws \Throwable
      */
-    public function withIncorrectType(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage(
-            \sprintf(
-                'The type of the "value" attribute for class "%s" must be one of "string" ("integer" given)',
-                ClassWithPrivateConstructor::class
-            )
-        );
-
-        $serializer = new SymfonyMessageSerializer();
-
-        $data = $serializer->encode(ClassWithPrivateConstructor::create(100));
-
-        $serializer->decode($data);
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
     public function successFlow(): void
     {
         $serializer = new SymfonyMessageSerializer();
@@ -221,6 +200,28 @@ final class SymfonyMessageSerializerTest extends TestCase
         static::assertSame(
             \get_object_vars($object),
             \get_object_vars($serializer->decode($serializer->encode($object)))
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     */
+    public function successCollection(): void
+    {
+        $serializer = new SymfonyMessageSerializer();
+
+        $object               = new AuthorCollection();
+        $object->collection[] = Author::create('qwerty', 'root');
+        $object->collection[] = Author::create('root', 'qwerty');
+
+        /** @var AuthorCollection $unserialized */
+        $unserialized = $serializer->decode($serializer->encode($object));
+
+        static::assertSame(
+            array_map(fn(Author $author): string => $author->firstName, $object->collection),
+            array_map(fn(Author $author): string => $author->firstName, $unserialized->collection),
         );
     }
 }
