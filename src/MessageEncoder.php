@@ -20,11 +20,7 @@ interface MessageEncoder
     /**
      * Encode message to string.
      *
-     * @param object $message
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed
-     *
-     * @return string
      */
     public function encode(object $message): string;
 
@@ -33,11 +29,7 @@ interface MessageEncoder
      *
      * @psalm-return array<string, mixed>
      *
-     * @param object $message
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\NormalizationFailed Unexpected normalize result
-     *
-     * @return array
      */
     public function normalize(object $message): array;
 }

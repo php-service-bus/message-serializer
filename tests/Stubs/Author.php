@@ -17,31 +17,15 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class Author
 {
-    /**
-     * @var string
-     */
-    public $firstName;
+    public string $firstName;
 
-    /**
-     * @var string
-     */
-    public $lastName;
+    public string $lastName;
 
-    /**
-     * @param string $firstName
-     * @param string $lastName
-     *
-     * @return self
-     */
     public static function create(string $firstName, string $lastName): self
     {
         return new self($firstName, $lastName);
     }
 
-    /**
-     * @param string $firstName
-     * @param string $lastName
-     */
     private function __construct(string $firstName, string $lastName)
     {
         $this->firstName = $firstName;

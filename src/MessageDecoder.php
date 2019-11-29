@@ -20,23 +20,16 @@ interface MessageDecoder
     /**
      * Restore message from string.
      *
-     * @param string $serializedMessage
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed
-     *
-     * @return object
      */
     public function decode(string $serializedMessage): object;
 
     /**
      * Convert array to specified object.
      *
-     * @param array<string, mixed> $payload
-     * @param string               $class
+     * @psalm-param array<string, mixed> $payload
      *
      * @throws \ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed
-     *
-     * @return object
      */
     public function denormalize(array $payload, string $class): object;
 }

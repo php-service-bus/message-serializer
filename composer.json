@@ -28,16 +28,20 @@
     }
   },
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "ext-json": "*",
     "ext-iconv": "*",
-    "php-service-bus/common": "v3.3.*",
-    "symfony/serializer-pack": "v1.0.*"
+    "php-service-bus/common": "v4.0.*",
+    "doctrine/annotations": "v1.8.*",
+    "phpdocumentor/reflection-docblock": "v4.3.*",
+    "symfony/property-access": "v5.0.*",
+    "symfony/property-info":  "v5.0.*",
+    "symfony/serializer":  "v5.0.*"
   },
   "require-dev": {
-    "php-service-bus/code-style-config": "v0.1.*",
-    "phpunit/phpunit": "v8.3.*",
-    "vimeo/psalm": "v3.4.*",
+    "php-service-bus/code-style-config": "v1.1.*",
+    "phpunit/phpunit": "v8.4.*",
+    "vimeo/psalm": "v3.7.*",
     "phpstan/phpstan": "v0.11.*"
   },
   "prefer-stable": true,

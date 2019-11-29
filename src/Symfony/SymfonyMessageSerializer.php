@@ -33,28 +33,19 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 {
     /**
      * Symfony normalizer\denormalizer.
-     *
-     * @var SymfonySerializer\Serializer
      */
-    private $normalizer;
+    private SymfonySerializer\Serializer $normalizer;
 
     /**
      * Serializer implementation.
-     *
-     * @var Serializer
      */
-    private $serializer;
+    private Serializer $serializer;
 
     /**
-     * @noinspection PhpDocMissingThrowsInspection
-     * @noinspection PhpDocSignatureInspection
-     *
-     * @param Serializer                                                                                              $serializer
      * @param SymfonySerializer\Normalizer\DenormalizerInterface[]|SymfonySerializer\Normalizer\NormalizerInterface[] $normalizers
      */
     public function __construct(Serializer $serializer = null, array $normalizers = [])
     {
-        /** @noinspection PhpUnhandledExceptionInspection */
         $defaultNormalizers = [
             new SymfonySerializer\Normalizer\DateTimeNormalizer(['datetime_format' => 'c']),
             new SymfonySerializer\Normalizer\ArrayDenormalizer(),
@@ -165,11 +156,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     /**
      * @psalm-param array{message:array<string, string|int|float|null>, namespace:class-string} $data
      *
-     * @param array $data
-     *
      * @throws \UnexpectedValueException
-     *
-     * @return void
      */
     private static function validateUnserializedData(array $data): void
     {

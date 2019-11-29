@@ -23,10 +23,10 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 {
     /**
      * @psalm-var array<string, array<array-key, string>>
-     *
-     * @var array
      */
-    private $localStorage = [];
+    private array
+
+ $localStorage = [];
 
     /**
      * {@inheritdoc}
@@ -46,12 +46,8 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 
     /**
      * {@inheritdoc}
-     *
-     * @param object      $object
-     * @param string|null $format
-     * @param array       $context
      */
-    protected function extractAttributes($object, $format = null, array $context = []): array
+    protected function extractAttributes(object $object, string $format = null, array $context = []): array
     {
         $class = \get_class($object);
 

@@ -49,6 +49,8 @@ final class JsonSerializer implements Serializer
     {
         try
         {
+            /** @noinspection PhpUnnecessaryLocalVariableInspection */
+            /** @noinspection OneTimeUseVariablesInspection */
             /** @psalm-var array<string, string|int|float|null> $decoded */
             $decoded = \json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
 

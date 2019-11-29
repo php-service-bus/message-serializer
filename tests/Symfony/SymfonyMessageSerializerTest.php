@@ -33,8 +33,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function emptyClassWithClosedConstructor(): void
     {
@@ -58,8 +56,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public static function classWithClosedConstructor(): void
     {
@@ -76,8 +72,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function classNotFound(): void
     {
@@ -91,8 +85,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withoutNamespace(): void
     {
@@ -109,8 +101,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withoutPayload(): void
     {
@@ -126,8 +116,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withDateTime(): void
     {
@@ -147,8 +135,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function wthNullableObjectArgument(): void
     {
@@ -167,8 +153,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function denormalizeToUnknownClass(): void
     {
@@ -183,8 +167,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withWrongCharset(): void
     {
@@ -202,8 +184,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withIncorrectType(): void
     {
@@ -226,8 +206,6 @@ final class SymfonyMessageSerializerTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function successFlow(): void
     {

@@ -17,15 +17,10 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class ClassWithPrivateConstructor
 {
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     /**
-     * @param mixed
-     *
-     * @return self
+     * @param mixed $value
      */
     public static function create($value): self
     {

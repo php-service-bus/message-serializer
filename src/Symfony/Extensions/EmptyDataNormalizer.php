@@ -23,15 +23,15 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
 {
     /**
      * @psalm-var array<string, array<array-key, string>>
-     *
-     * @var array
      */
-    private $localStorage = [];
+    private array
+
+ $localStorage = [];
 
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         return [];
     }
@@ -41,7 +41,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
      *
      * @throws \ReflectionException
      */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, string $format = null): bool
     {
         if (true === \is_object($data))
         {
@@ -65,25 +65,21 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     }
 
     /**
-     * @noinspection MoreThanThreeArgumentsInspection
-     *
      * {@inheritdoc}
      *
      * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
      */
-    public function denormalize($data, $class, $format = null, array $context = []): object
+    public function denormalize($data, string $type, string $format = null, array $context = []): object
     {
-        /** @psalm-var class-string $class */
+        /** @psalm-var class-string $type */
 
-        return createWithoutConstructor($class);
+        return createWithoutConstructor($type);
     }
 
     /**
-     * @noinspection MoreThanThreeArgumentsInspection
-     *
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
+    public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return empty($data);
     }

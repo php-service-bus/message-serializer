@@ -22,11 +22,7 @@ interface Serializer
      *
      * @psalm-param array<array-key, mixed> $payload
      *
-     * @param array $payload
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\SerializationFailed
-     *
-     * @return string
      */
     public function serialize(array $payload): string;
 
@@ -35,11 +31,7 @@ interface Serializer
      *
      * @psalm-return array<array-key, mixed>
      *
-     * @param string $content
-     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\UnserializeFailed
-     *
-     * @return array
      */
     public function unserialize(string $content): array;
 }

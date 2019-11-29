@@ -17,14 +17,8 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class WithDateTimeField
 {
-    /**
-     * @var \DateTimeImmutable
-     */
-    public $dateTimeValue;
+    public \DateTimeImmutable $dateTimeValue;
 
-    /**
-     * @param \DateTimeImmutable $dateTimeValue
-     */
     public function __construct(\DateTimeImmutable $dateTimeValue)
     {
         $this->dateTimeValue = $dateTimeValue;

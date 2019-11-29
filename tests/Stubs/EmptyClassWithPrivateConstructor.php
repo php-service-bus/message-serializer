@@ -17,9 +17,6 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class EmptyClassWithPrivateConstructor
 {
-    /**
-     * @return self
-     */
     public static function create(): self
     {
         return new self();
