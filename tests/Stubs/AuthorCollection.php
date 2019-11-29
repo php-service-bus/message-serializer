@@ -19,5 +19,7 @@ final class AuthorCollection
     /**
      * @var Author[]
      */
-    public array $collection;
+    public array
+
+ $collection;
 }

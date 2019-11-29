@@ -21,6 +21,7 @@ use ServiceBus\MessageSerializer\Tests\Stubs\Author;
 use ServiceBus\MessageSerializer\Tests\Stubs\AuthorCollection;
 use ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
 use ServiceBus\MessageSerializer\Tests\Stubs\EmptyClassWithPrivateConstructor;
+use ServiceBus\MessageSerializer\Tests\Stubs\MixedWithLegacy;
 use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
@@ -212,7 +213,8 @@ final class SymfonyMessageSerializerTest extends TestCase
     {
         $serializer = new SymfonyMessageSerializer();
 
-        $object               = new AuthorCollection();
+        $object = new AuthorCollection();
+
         $object->collection[] = Author::create('qwerty', 'root');
         $object->collection[] = Author::create('root', 'qwerty');
 
@@ -223,5 +225,28 @@ final class SymfonyMessageSerializerTest extends TestCase
             array_map(fn(Author $author): string => $author->firstName, $object->collection),
             array_map(fn(Author $author): string => $author->firstName, $unserialized->collection),
         );
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     */
+    public function legacyPropertiesSupport(): void
+    {
+        $serializer = new SymfonyMessageSerializer();
+
+        $object = new MixedWithLegacy(
+            'qwerty',
+            new \DateTimeImmutable('2019-01-01', new \DateTimeZone('UTC')),
+            100500
+        );
+
+        /** @var MixedWithLegacy $unserialized */
+        $unserialized = $serializer->decode($serializer->encode($object));
+
+        static::assertSame($object->string, $unserialized->string);
+        static::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
+        static::assertSame($object->long, $unserialized->long);
     }
 }

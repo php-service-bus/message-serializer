@@ -40,8 +40,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         \ReflectionClass $reflectionClass,
         $allowedAttributes,
         string $format = null
-    ): object
-    {
+    ): object {
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
@@ -52,11 +51,15 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     {
         $class = \get_class($object);
 
-        if(false === isset($this->localStorage[$class]))
+        if (false === isset($this->localStorage[$class]))
         {
             $this->localStorage[$class] = [];
 
-            foreach(\get_object_vars($object) as $key => $value)
+            /**
+             * @var string $key
+             * @var mixed  $value
+             */
+            foreach (\get_object_vars($object) as $key => $value)
             {
                 $this->localStorage[$class][] = $key;
             }
@@ -70,7 +73,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
-        if(isset($object->{$attribute}) === true)
+        if (true === isset($object->{$attribute}))
         {
             return $object->{$attribute};
         }
@@ -79,11 +82,13 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     }
 
     /**
+     * @psalm-param mixed $value
+     *
      * {@inheritdoc}
      */
-    protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = [])
+    protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = []): void
     {
-        if(isset($object->{$attribute}) === true)
+        if (true === isset($object->{$attribute}))
         {
             $object->{$attribute} = $value;
         }
