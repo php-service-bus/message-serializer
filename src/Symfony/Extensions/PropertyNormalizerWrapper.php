@@ -24,9 +24,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     /**
      * @psalm-var array<string, array<array-key, string>>
      */
-    private array
-
-        $localStorage = [];
+    private array $localStorage = [];
 
     /**
      * {@inheritdoc}

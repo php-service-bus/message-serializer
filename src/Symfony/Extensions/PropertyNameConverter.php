@@ -24,9 +24,7 @@ final class PropertyNameConverter implements NameConverterInterface
      *
      * @psalm-var array<string, string>
      */
-    private array
-
- $localStorage;
+    private array $localStorage;
 
     /**
      * {@inheritdoc}
@@ -45,7 +43,7 @@ final class PropertyNameConverter implements NameConverterInterface
         {
             $joinedString = \preg_replace_callback(
                 '/_(.?)/',
-                static function(array $matches): string
+                static function (array $matches): string
                 {
                     return \ucfirst((string) $matches[1]);
                 },

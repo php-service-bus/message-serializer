@@ -24,9 +24,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     /**
      * @psalm-var array<string, array<array-key, string>>
      */
-    private array
-
- $localStorage = [];
+    private array $localStorage = [];
 
     /**
      * {@inheritdoc}
@@ -50,7 +48,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
             if (false === isset($this->localStorage[$class]))
             {
                 $this->localStorage[$class] = \array_map(
-                    static function(\ReflectionProperty $property): string
+                    static function (\ReflectionProperty $property): string
                     {
                         return (string) $property->name;
                     },

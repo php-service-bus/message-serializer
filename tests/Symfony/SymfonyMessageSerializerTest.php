@@ -222,8 +222,8 @@ final class SymfonyMessageSerializerTest extends TestCase
         $unserialized = $serializer->decode($serializer->encode($object));
 
         static::assertSame(
-            array_map(fn(Author $author): string => $author->firstName, $object->collection),
-            array_map(fn(Author $author): string => $author->firstName, $unserialized->collection),
+            array_map(fn (Author $author): string => $author->firstName, $object->collection),
+            array_map(fn (Author $author): string => $author->firstName, $unserialized->collection),
         );
     }
 

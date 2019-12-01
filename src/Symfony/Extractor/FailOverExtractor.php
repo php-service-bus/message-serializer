@@ -23,9 +23,7 @@ final class FailOverExtractor implements PropertyTypeExtractorInterface
     /**
      * @var PropertyTypeExtractorInterface[]
      */
-    private array
-
- $extractors;
+    private array $extractors;
 
     public function __construct()
     {
