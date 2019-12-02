@@ -51,16 +51,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 
         if (false === isset($this->localStorage[$class]))
         {
-            $this->localStorage[$class] = [];
-
-            /**
-             * @var string $key
-             * @var mixed  $value
-             */
-            foreach (\get_object_vars($object) as $key => $value)
-            {
-                $this->localStorage[$class][] = $key;
-            }
+            $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
         }
 
         return $this->localStorage[$class];
@@ -68,6 +59,8 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Throwable
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
@@ -76,7 +69,19 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
             return $object->{$attribute};
         }
 
-        return parent::getAttributeValue($object, $attribute, $format, $context);
+        try
+        {
+            return parent::getAttributeValue($object, $attribute, $format, $context);
+        }
+        catch (\Throwable $throwable)
+        {
+            if (\strpos($throwable->getMessage(), 'before initialization') !== false)
+            {
+                return null;
+            }
+
+            throw $throwable;
+        }
     }
 
     /**

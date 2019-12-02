@@ -25,6 +25,8 @@ use ServiceBus\MessageSerializer\Tests\Stubs\MixedWithLegacy;
 use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
+use ServiceBus\MessageSerializer\Tests\Stubs\WithPrivateProperties;
+use function ServiceBus\Common\now;
 
 /**
  *
@@ -248,5 +250,24 @@ final class SymfonyMessageSerializerTest extends TestCase
         static::assertSame($object->string, $unserialized->string);
         static::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
         static::assertSame($object->long, $unserialized->long);
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     */
+    public function privateMixedPropertiesSupport(): void
+    {
+        $serializer = new SymfonyMessageSerializer();
+
+        $object = new WithPrivateProperties(
+            'Some string',
+            100500,
+            now()
+        );
+
+        /** @var WithPrivateProperties $unserialized */
+        $unserialized = $serializer->decode($serializer->encode($object));
     }
 }

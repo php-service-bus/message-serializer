@@ -14,6 +14,8 @@ namespace ServiceBus\MessageSerializer;
 
 use ServiceBus\MessageSerializer\Exceptions\SerializationFailed;
 use ServiceBus\MessageSerializer\Exceptions\UnserializeFailed;
+use function ServiceBus\Common\jsonDecode;
+use function ServiceBus\Common\jsonEncode;
 
 /**
  *
@@ -27,10 +29,7 @@ final class JsonSerializer implements Serializer
     {
         try
         {
-            /** @var string $encoded */
-            $encoded = \json_encode($payload, \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
-
-            return $encoded;
+            return jsonEncode($payload);
         }
         catch (\Throwable $throwable)
         {
@@ -49,12 +48,7 @@ final class JsonSerializer implements Serializer
     {
         try
         {
-            /** @noinspection PhpUnnecessaryLocalVariableInspection */
-            /** @noinspection OneTimeUseVariablesInspection */
-            /** @psalm-var array<string, string|int|float|null> $decoded */
-            $decoded = \json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
-
-            return $decoded;
+            return jsonDecode($content);
         }
         catch (\Throwable $throwable)
         {

@@ -21,16 +21,18 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 final class FailOverExtractor implements PropertyTypeExtractorInterface
 {
     /**
+     * @psalm-var array<string, \Symfony\Component\PropertyInfo\Type[]|null>
+     */
+    private array $localStorage;
+
+    /**
      * @var PropertyTypeExtractorInterface[]
      */
     private array $extractors;
 
     public function __construct()
     {
-        $this->extractors = [
-            new ReflectionExtractor(),
-            new PhpDocExtractor(),
-        ];
+        $this->extractors = [new PhpDocExtractor(), new ReflectionExtractor()];
     }
 
     /**
@@ -38,16 +40,25 @@ final class FailOverExtractor implements PropertyTypeExtractorInterface
      */
     public function getTypes(string $class, string $property, array $context = []): ?array
     {
-        foreach ($this->extractors as $extractor)
-        {
-            $types = $extractor->getTypes($class, $property, $context);
+        $cacheKey = \sha1($class . $property);
 
-            if (null !== $types)
+        if (isset($this->localStorage[$cacheKey]) === false)
+        {
+            $this->localStorage[$cacheKey] = null;
+
+            foreach ($this->extractors as $extractor)
             {
-                return $types;
+                $types = $extractor->getTypes($class, $property, $context);
+
+                if (null !== $types)
+                {
+                    $this->localStorage[$cacheKey] = $types;
+
+                    break;
+                }
             }
         }
 
-        return null;
+        return $this->localStorage[$cacheKey];
     }
 }
