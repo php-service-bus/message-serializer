@@ -29,7 +29,7 @@ final class MixedWithLegacy
     /**
      * @var int
      */
-    public int $long;
+    public $long;
 
     /**
      * MixedWithLegacy constructor.

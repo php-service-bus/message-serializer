@@ -248,7 +248,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function legacyPropertiesSupport(): void
     {
-        if (\PHP_VERSION_ID >= 7040)
+        if (\PHP_VERSION_ID >= 70400)
         {
             $serializer = new SymfonyMessageSerializer();
 
@@ -274,7 +274,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function privateMixedPropertiesSupport(): void
     {
-        if (\PHP_VERSION_ID >= 7040)
+        if (\PHP_VERSION_ID >= 70400)
         {
             $serializer = new SymfonyMessageSerializer();
 
