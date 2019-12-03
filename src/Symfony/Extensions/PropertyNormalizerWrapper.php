@@ -94,10 +94,10 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         if (true === isset($object->{$attribute}))
         {
             $object->{$attribute} = $value;
+
+            return;
         }
-        else
-        {
-            parent::setAttributeValue($object, $attribute, $value, $format, $context);
-        }
+
+        parent::setAttributeValue($object, $attribute, $value, $format, $context);
     }
 }
