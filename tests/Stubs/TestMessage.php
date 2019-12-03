@@ -17,13 +17,24 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class TestMessage
 {
-    private string $componentName;
+    /**
+     * @var string
+     */
+    private $componentName;
+    /**
+     * @var string|null
+     */
+    private $stableVersion;
 
-    private ?string $stableVersion;
+    /**
+     * @var string
+     */
+    private $devVersion;
 
-    private string $devVersion;
-
-    private Author $author;
+    /**
+     * @var Author
+     */
+    private $author;
 
     public static function create(string $componentName, ?string $stableVersion, string $devVersion, Author $author): self
     {
@@ -37,8 +48,8 @@ final class TestMessage
         /** @noinspection UnusedConstructorDependenciesInspection */
         $this->stableVersion = $stableVersion;
         /** @noinspection UnusedConstructorDependenciesInspection */
-        $this->devVersion    = $devVersion;
+        $this->devVersion = $devVersion;
         /** @noinspection UnusedConstructorDependenciesInspection */
-        $this->author        = $author;
+        $this->author = $author;
     }
 }

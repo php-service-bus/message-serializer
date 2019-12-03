@@ -20,7 +20,7 @@ final class ClassWithPrivateConstructor
     /**
      * @var string
      */
-    public string $value;
+    public $value;
 
     /**
      * @param mixed

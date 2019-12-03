@@ -38,8 +38,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         \ReflectionClass $reflectionClass,
         $allowedAttributes,
         string $format = null
-    ): object
-    {
+    ): object {
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
@@ -50,7 +49,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     {
         $class = \get_class($object);
 
-        if(\array_key_exists($class, $this->localStorage) === false)
+        if (\array_key_exists($class, $this->localStorage) === false)
         {
             $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
         }
@@ -65,7 +64,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
-        if(isset($object->{$attribute}) === true)
+        if (isset($object->{$attribute}) === true)
         {
             return $object->{$attribute};
         }
@@ -74,9 +73,9 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         {
             return parent::getAttributeValue($object, $attribute, $format, $context);
         }
-        catch(\Error $error)
+        catch (\Error $error)
         {
-            if(\strpos($error->getMessage(), 'must not be accessed before initialization') !== false)
+            if (\strpos($error->getMessage(), 'must not be accessed before initialization') !== false)
             {
                 return null;
             }
@@ -92,7 +91,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = []): void
     {
-        if(isset($object->{$attribute}) === true)
+        if (isset($object->{$attribute}) === true)
         {
             $object->{$attribute} = $value;
 

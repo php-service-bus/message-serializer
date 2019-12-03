@@ -41,7 +41,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
      */
     public function supportsNormalization($data, string $format = null): bool
     {
-        if ( \is_object($data) === true)
+        if (\is_object($data) === true)
         {
             $class = \get_class($data);
 

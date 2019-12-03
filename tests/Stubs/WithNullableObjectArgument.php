@@ -17,9 +17,15 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class WithNullableObjectArgument
 {
-    public string $value;
+    /**
+     * @var string
+     */
+    public $value;
 
-    private ?ClassWithPrivateConstructor $object;
+    /**
+     * @var ClassWithPrivateConstructor|null
+     */
+    private $object;
 
     public static function withObject(string $value, ClassWithPrivateConstructor $object): self
     {

@@ -225,13 +225,14 @@ final class SymfonyMessageSerializerTest extends TestCase
 
         static::assertSame(
             \array_map(
-                static function(Author $author): string
+                static function (Author $author): string
                 {
                     return $author->firstName;
                 },
-                $object->collection),
+                $object->collection
+            ),
             \array_map(
-                static function(Author $author): string
+                static function (Author $author): string
                 {
                     return $author->firstName;
                 },
@@ -247,7 +248,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function legacyPropertiesSupport(): void
     {
-        if(\PHP_VERSION_ID >= 7040)
+        if (\PHP_VERSION_ID >= 7040)
         {
             $serializer = new SymfonyMessageSerializer();
 
@@ -273,7 +274,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function privateMixedPropertiesSupport(): void
     {
-        if(\PHP_VERSION_ID >= 7040)
+        if (\PHP_VERSION_ID >= 7040)
         {
             $serializer = new SymfonyMessageSerializer();
 

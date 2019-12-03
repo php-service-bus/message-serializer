@@ -42,15 +42,15 @@ final class FailOverExtractor implements PropertyTypeExtractorInterface
     {
         $cacheKey = \sha1($class . $property);
 
-        if(\array_key_exists($cacheKey, $this->localStorage) === false)
+        if (\array_key_exists($cacheKey, $this->localStorage) === false)
         {
             $this->localStorage[$cacheKey] = null;
 
-            foreach($this->extractors as $extractor)
+            foreach ($this->extractors as $extractor)
             {
                 $types = $extractor->getTypes($class, $property, $context);
 
-                if(null !== $types)
+                if (null !== $types)
                 {
                     $this->localStorage[$cacheKey] = $types;
 
