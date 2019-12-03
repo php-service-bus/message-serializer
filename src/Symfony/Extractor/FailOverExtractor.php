@@ -42,7 +42,7 @@ final class FailOverExtractor implements PropertyTypeExtractorInterface
     {
         $cacheKey = \sha1($class . $property);
 
-        if (isset($this->localStorage[$cacheKey]) === false)
+        if (\array_key_exists($cacheKey, $this->localStorage) === false)
         {
             $this->localStorage[$cacheKey] = null;
 
