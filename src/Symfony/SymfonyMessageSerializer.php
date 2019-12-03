@@ -34,13 +34,17 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 {
     /**
      * Symfony normalizer\denormalizer.
+     *
+     * @var SymfonySerializer\Serializer
      */
-    private SymfonySerializer\Serializer $normalizer;
+    private $normalizer;
 
     /**
      * Serializer implementation.
+     *
+     * @var Serializer
      */
-    private Serializer $serializer;
+    private $serializer;
 
     /**
      * @param SymfonySerializer\Normalizer\DenormalizerInterface[]|SymfonySerializer\Normalizer\NormalizerInterface[] $normalizers
@@ -72,7 +76,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             return $this->serializer->serialize($data);
         }
-        catch (\Throwable $throwable)
+        catch(\Throwable $throwable)
         {
             throw new EncodeMessageFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
@@ -95,7 +99,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             return $object;
         }
-        catch (\Throwable $throwable)
+        catch(\Throwable $throwable)
         {
             throw new DecodeMessageFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
@@ -116,7 +120,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
             return $object;
         }
-        catch (\Throwable $throwable)
+        catch(\Throwable $throwable)
         {
             throw new DenormalizeFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
@@ -131,7 +135,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         {
             $data = $this->normalizer->normalize($message);
 
-            if (true === \is_array($data))
+            if(\is_array($data) === true)
             {
                 /** @psalm-var array<string, mixed> $data */
 
@@ -148,7 +152,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             );
             // @codeCoverageIgnoreEnd
         }
-        catch (\Throwable $throwable)
+        catch(\Throwable $throwable)
         {
             throw new NormalizationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
@@ -162,10 +166,11 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     private static function validateUnserializedData(array $data): void
     {
         /** Let's check if there are mandatory fields */
-        if (
-            false === isset($data['namespace']) ||
-            false === isset($data['message'])
-        ) {
+        if(
+            isset($data['namespace']) === false ||
+            isset($data['message']) === false
+        )
+        {
             throw new \UnexpectedValueException(
                 'The serialized data must contains a "namespace" field (indicates the message class) and "message" (indicates the message parameters)'
             );
@@ -176,7 +181,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
          *
          * @psalm-suppress DocblockTypeContradiction
          */
-        if ('' === $data['namespace'] || false === \class_exists((string) $data['namespace']))
+        if($data['namespace'] === '' || \class_exists((string) $data['namespace']) === false)
         {
             throw new \UnexpectedValueException(
                 \sprintf('Class "%s" not found', $data['namespace'])

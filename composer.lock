@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2db2e663705967cf2e12d7327270fdbc",
+    "content-hash": "a4c29ba8ce4e57b5598c34c02dadb282",
     "packages": [
         {
             "name": "amphp/amp",
@@ -260,22 +260,22 @@
         },
         {
             "name": "php-service-bus/common",
-            "version": "v4.0.1",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "ae3c1b3801039124c1ca2b5b278ad13a6f3e2801"
+                "reference": "baa7c41700d09b66ee7c131590bb0c2f39bff8f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/ae3c1b3801039124c1ca2b5b278ad13a6f3e2801",
-                "reference": "ae3c1b3801039124c1ca2b5b278ad13a6f3e2801",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/baa7c41700d09b66ee7c131590bb0c2f39bff8f6",
+                "reference": "baa7c41700d09b66ee7c131590bb0c2f39bff8f6",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "v2.4.*",
                 "ext-json": "*",
-                "php": ">=7.4",
+                "php": ">=7.3",
                 "ramsey/uuid": "v3.8.*"
             },
             "require-dev": {
@@ -312,7 +312,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-12-02T14:33:55+00:00"
+            "time": "2019-12-03T22:21:56+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2314,21 +2314,21 @@
         },
         {
             "name": "php-service-bus/code-style-config",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/code-style-config.git",
-                "reference": "ab89a1963973c3639e2e43aa61addb694ede44fa"
+                "reference": "dff63007fe0fa3c7c0fb67c4dccbeedaac1a14c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/code-style-config/zipball/ab89a1963973c3639e2e43aa61addb694ede44fa",
-                "reference": "ab89a1963973c3639e2e43aa61addb694ede44fa",
+                "url": "https://api.github.com/repos/php-service-bus/code-style-config/zipball/dff63007fe0fa3c7c0fb67c4dccbeedaac1a14c3",
+                "reference": "dff63007fe0fa3c7c0fb67c4dccbeedaac1a14c3",
                 "shasum": ""
             },
             "require": {
                 "friendsofphp/php-cs-fixer": "v2.16.*",
-                "php": ">=7.4"
+                "php": ">=7.3"
             },
             "type": "library",
             "autoload": {
@@ -2349,7 +2349,7 @@
                 }
             ],
             "description": "PHP Service Bus code style config",
-            "time": "2019-12-01T19:26:37+00:00"
+            "time": "2019-12-03T22:09:48+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -4369,16 +4369,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "8e6aa8a07d148dcedf58cccf32ce4b602b422035"
+                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/8e6aa8a07d148dcedf58cccf32ce4b602b422035",
-                "reference": "8e6aa8a07d148dcedf58cccf32ce4b602b422035",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
+                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
                 "shasum": ""
             },
             "require": {
@@ -4453,7 +4453,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-12-02T05:11:45+00:00"
+            "time": "2019-12-03T13:33:31+00:00"
         },
         {
             "name": "webmozart/glob",
@@ -4555,7 +4555,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4",
+        "php": ">=7.3",
         "ext-json": "*",
         "ext-iconv": "*"
     },
