@@ -41,7 +41,7 @@ final class CombinedExtractor implements PropertyTypeExtractorInterface
      */
     public function getTypes(string $class, string $property, array $context = []): ?array
     {
-        $cacheKey = \sha1($class . $property);
+        $cacheKey = $class . $property;
 
         if (\array_key_exists($cacheKey, $this->localStorage) === false)
         {
