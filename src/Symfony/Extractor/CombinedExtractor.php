@@ -17,22 +17,23 @@ use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 
 /**
+ *
  */
-final class FailOverExtractor implements PropertyTypeExtractorInterface
+final class CombinedExtractor implements PropertyTypeExtractorInterface
 {
-    /**
-     * @psalm-var array<string, \Symfony\Component\PropertyInfo\Type[]|null>
-     */
+    /** @psalm-var array<string, \Symfony\Component\PropertyInfo\Type[]|null> */
     private $localStorage = [];
 
-    /**
-     * @var PropertyTypeExtractorInterface[]
-     */
-    private $extractors;
+    /** @var PhpDocExtractor */
+    private $phpDocExtractor;
+
+    /** @var ReflectionExtractor */
+    private $reflectionPropertyExtractor;
 
     public function __construct()
     {
-        $this->extractors = [new PhpDocExtractor(), new ReflectionExtractor()];
+        $this->phpDocExtractor             = new PhpDocExtractor();
+        $this->reflectionPropertyExtractor = new ReflectionExtractor();
     }
 
     /**
@@ -44,19 +45,14 @@ final class FailOverExtractor implements PropertyTypeExtractorInterface
 
         if (\array_key_exists($cacheKey, $this->localStorage) === false)
         {
-            $this->localStorage[$cacheKey] = null;
+            $types = $this->phpDocExtractor->getTypes($class, $property, $context);
 
-            foreach ($this->extractors as $extractor)
+            if ($types === null)
             {
-                $types = $extractor->getTypes($class, $property, $context);
-
-                if (null !== $types)
-                {
-                    $this->localStorage[$cacheKey] = $types;
-
-                    break;
-                }
+                $types = $this->reflectionPropertyExtractor->getTypes($class, $property, $context);
             }
+
+            $this->localStorage[$cacheKey] = $types;
         }
 
         return $this->localStorage[$cacheKey];

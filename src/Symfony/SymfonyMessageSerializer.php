@@ -20,10 +20,11 @@ use ServiceBus\MessageSerializer\JsonSerializer;
 use ServiceBus\MessageSerializer\MessageDecoder;
 use ServiceBus\MessageSerializer\MessageEncoder;
 use ServiceBus\MessageSerializer\Serializer;
-use ServiceBus\MessageSerializer\Symfony\Extractor\FailOverExtractor;
+use ServiceBus\MessageSerializer\Symfony\Extractor\CombinedExtractor;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataNormalizer;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNameConverter;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNormalizerWrapper;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer as SymfonySerializer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
@@ -51,10 +52,12 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
      */
     public function __construct(Serializer $serializer = null, array $normalizers = [])
     {
+        $extractor = \PHP_VERSION_ID >= 70400 ? new CombinedExtractor() : new PhpDocExtractor();
+
         $defaultNormalizers = [
             new DateTimeNormalizer(['datetime_format' => 'c']),
             new SymfonySerializer\Normalizer\ArrayDenormalizer(),
-            new PropertyNormalizerWrapper(null, new PropertyNameConverter(), new FailOverExtractor()),
+            new PropertyNormalizerWrapper(null, new PropertyNameConverter(), $extractor),
             new EmptyDataNormalizer(),
         ];
 
