@@ -49,7 +49,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     {
         $class = \get_class($object);
 
-        if (false === isset($this->localStorage[$class]))
+        if (false === \array_key_exists($class, $this->localStorage))
         {
             $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
         }
