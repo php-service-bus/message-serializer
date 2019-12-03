@@ -60,7 +60,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     /**
      * {@inheritdoc}
      *
-     * @throws \Throwable
+     * @throws \Error
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
@@ -73,14 +73,14 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         {
             return parent::getAttributeValue($object, $attribute, $format, $context);
         }
-        catch (\Throwable $throwable)
+        catch (\Error $error)
         {
-            if (\strpos($throwable->getMessage(), 'before initialization') !== false)
+            if (\strpos($error->getMessage(), 'must not be accessed before initialization') !== false)
             {
                 return null;
             }
 
-            throw $throwable;
+            throw $error;
         }
     }
 
