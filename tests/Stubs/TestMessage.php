@@ -21,6 +21,7 @@ final class TestMessage
      * @var string
      */
     private $componentName;
+
     /**
      * @var string|null
      */

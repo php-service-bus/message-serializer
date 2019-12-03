@@ -17,9 +17,15 @@ namespace ServiceBus\MessageSerializer\Tests\Stubs;
  */
 final class Author
 {
-    public string $firstName;
+    /**
+     * @var string
+     */
+    public $firstName;
 
-    public string $lastName;
+    /**
+     * @var string
+     */
+    public $lastName;
 
     public static function create(string $firstName, string $lastName): self
     {
