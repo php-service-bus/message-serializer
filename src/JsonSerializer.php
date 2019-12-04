@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace ServiceBus\MessageSerializer;
 
+use ServiceBus\Common\Exceptions\JsonSerializationFailed;
 use ServiceBus\MessageSerializer\Exceptions\SerializationFailed;
 use ServiceBus\MessageSerializer\Exceptions\UnserializeFailed;
 use function ServiceBus\Common\jsonDecode;
@@ -31,12 +32,12 @@ final class JsonSerializer implements Serializer
         {
             return jsonEncode($payload);
         }
-        catch (\Throwable $throwable)
+        catch (JsonSerializationFailed $jsonError)
         {
             throw new SerializationFailed(
-                \sprintf('JSON serialize failed: %s', $throwable->getMessage()),
-                (int) $throwable->getCode(),
-                $throwable
+                \sprintf('JSON serialize failed: %s', $jsonError->getMessage()),
+                (int) $jsonError->getCode(),
+                $jsonError
             );
         }
     }
@@ -50,12 +51,12 @@ final class JsonSerializer implements Serializer
         {
             return jsonDecode($content);
         }
-        catch (\Throwable $throwable)
+        catch (JsonSerializationFailed $jsonError)
         {
             throw new UnserializeFailed(
-                \sprintf('JSON unserialize failed: %s', $throwable->getMessage()),
-                (int) $throwable->getCode(),
-                $throwable
+                \sprintf('JSON unserialize failed: %s', $jsonError->getMessage()),
+                (int) $jsonError->getCode(),
+                $jsonError
             );
         }
     }
