@@ -92,7 +92,6 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     {
         try
         {
-            /** @psalm-var array{message:array<string, string|int|float|null>, namespace:class-string} $data */
             $data = $this->serializer->unserialize($serializedMessage);
 
             self::validateUnserializedData($data);
@@ -162,7 +161,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     }
 
     /**
-     * @psalm-param array{message:array<string, string|int|float|null>, namespace:class-string} $data
+     * @psalm-assert array{message:array<string, mixed>, namespace:class-string} $data
      *
      * @throws \UnexpectedValueException
      */
@@ -178,12 +177,22 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             );
         }
 
+        if (false === \is_array($data['message']))
+        {
+            throw new \UnexpectedValueException('"message" field from serialized data should be an array');
+        }
+
+        if (false === \is_string($data['namespace']))
+        {
+            throw new \UnexpectedValueException('"namespace" field from serialized data should be a string');
+        }
+
         /**
          * Let's check if the specified class exists.
          *
          * @psalm-suppress DocblockTypeContradiction
          */
-        if ($data['namespace'] === '' || \class_exists((string) $data['namespace']) === false)
+        if ($data['namespace'] === '' || \class_exists($data['namespace']) === false)
         {
             throw new \UnexpectedValueException(
                 \sprintf('Class "%s" not found', $data['namespace'])
