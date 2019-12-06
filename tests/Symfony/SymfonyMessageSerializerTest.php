@@ -244,48 +244,46 @@ final class SymfonyMessageSerializerTest extends TestCase
     /**
      * @test
      *
+     * @requires PHP >= 7.4
+     *
      * @throws \Throwable
      */
     public function legacyPropertiesSupport(): void
     {
-        if (\PHP_VERSION_ID >= 70400)
-        {
-            $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonyMessageSerializer();
 
-            $object = new MixedWithLegacy(
-                'qwerty',
-                new \DateTimeImmutable('2019-01-01', new \DateTimeZone('UTC')),
-                100500
-            );
+        $object = new MixedWithLegacy(
+            'qwerty',
+            new \DateTimeImmutable('2019-01-01', new \DateTimeZone('UTC')),
+            100500
+        );
 
-            /** @var MixedWithLegacy $unserialized */
-            $unserialized = $serializer->decode($serializer->encode($object));
+        /** @var MixedWithLegacy $unserialized */
+        $unserialized = $serializer->decode($serializer->encode($object));
 
-            static::assertSame($object->string, $unserialized->string);
-            static::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
-            static::assertSame($object->long, $unserialized->long);
-        }
+        static::assertSame($object->string, $unserialized->string);
+        static::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
+        static::assertSame($object->long, $unserialized->long);
     }
 
     /**
      * @test
      *
+     * @requires PHP >= 7.4
+     *
      * @throws \Throwable
      */
     public function privateMixedPropertiesSupport(): void
     {
-        if (\PHP_VERSION_ID >= 70400)
-        {
-            $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonyMessageSerializer();
 
-            $object = new WithPrivateProperties(
-                'Some string',
-                100500,
-                now()
-            );
+        $object = new WithPrivateProperties(
+            'Some string',
+            100500,
+            now()
+        );
 
-            /** @var WithPrivateProperties $unserialized */
-            $unserialized = $serializer->decode($serializer->encode($object));
-        }
+        /** @var WithPrivateProperties $unserialized */
+        $unserialized = $serializer->decode($serializer->encode($object));
     }
 }
