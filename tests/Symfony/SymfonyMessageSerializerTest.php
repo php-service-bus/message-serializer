@@ -77,12 +77,38 @@ final class SymfonyMessageSerializerTest extends TestCase
      *
      * @throws \Throwable
      */
+    public function messageNotArray(): void
+    {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage('"message" field from serialized data should be an array');
+
+        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue', 'namespace' => \SomeClass::class]));
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     */
+    public function namespaceNotString(): void
+    {
+        $this->expectException(DecodeMessageFailed::class);
+        $this->expectExceptionMessage('"namespace" field from serialized data should be a string');
+
+        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => [], 'namespace' => new \stdClass]));
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     */
     public function classNotFound(): void
     {
         $this->expectException(DecodeMessageFailed::class);
         $this->expectExceptionMessage('Class "SomeClass" not found');
 
-        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue', 'namespace' => \SomeClass::class]));
+        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => [], 'namespace' => \SomeClass::class]));
     }
 
     /**
