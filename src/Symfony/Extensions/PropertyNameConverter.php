@@ -24,7 +24,7 @@ final class PropertyNameConverter implements NameConverterInterface
      *
      * @psalm-var array<string, string>
      */
-    private $localStorage;
+    private $localStorage = [];
 
     /**
      * {@inheritdoc}
