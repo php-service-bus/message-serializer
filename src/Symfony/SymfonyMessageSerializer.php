@@ -16,10 +16,8 @@ use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\NormalizationFailed;
-use ServiceBus\MessageSerializer\JsonSerializer;
 use ServiceBus\MessageSerializer\MessageDecoder;
 use ServiceBus\MessageSerializer\MessageEncoder;
-use ServiceBus\MessageSerializer\Serializer;
 use ServiceBus\MessageSerializer\Symfony\Extractor\CombinedExtractor;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\EmptyDataNormalizer;
 use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNameConverter;
@@ -27,6 +25,8 @@ use ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions\PropertyNormalizer
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer as SymfonySerializer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use function ServiceBus\Common\jsonDecode;
+use function ServiceBus\Common\jsonEncode;
 
 /**
  *
@@ -41,16 +41,9 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     private $normalizer;
 
     /**
-     * Serializer implementation.
-     *
-     * @var Serializer
-     */
-    private $serializer;
-
-    /**
      * @param SymfonySerializer\Normalizer\DenormalizerInterface[]|SymfonySerializer\Normalizer\NormalizerInterface[] $normalizers
      */
-    public function __construct(Serializer $serializer = null, array $normalizers = [])
+    public function __construct(array $normalizers = [])
     {
         $extractor = \PHP_VERSION_ID >= 70400 ? new CombinedExtractor() : new PhpDocExtractor();
 
@@ -65,7 +58,6 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         $normalizers = \array_merge($normalizers, $defaultNormalizers);
 
         $this->normalizer = new SymfonySerializer\Serializer($normalizers);
-        $this->serializer = $serializer ?? new JsonSerializer();
     }
 
     /**
@@ -77,11 +69,15 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         {
             $data = ['message' => $this->normalize($message), 'namespace' => \get_class($message)];
 
-            return $this->serializer->serialize($data);
+            return jsonEncode($data);
         }
         catch (\Throwable $throwable)
         {
-            throw new EncodeMessageFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
+            throw new EncodeMessageFailed(
+                \sprintf('Message serialization failed: %s', $throwable->getMessage()),
+                (int) $throwable->getCode(),
+                $throwable
+            );
         }
     }
 
@@ -92,7 +88,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     {
         try
         {
-            $data = $this->serializer->unserialize($serializedMessage);
+            $data = jsonDecode($serializedMessage);
 
             self::validateUnserializedData($data);
 
@@ -103,7 +99,11 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         }
         catch (\Throwable $throwable)
         {
-            throw new DecodeMessageFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
+            throw new DecodeMessageFailed(
+                \sprintf('Message deserialization failed: %s', $throwable->getMessage()),
+                (int) $throwable->getCode(),
+                $throwable
+            );
         }
     }
 
@@ -177,12 +177,12 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             );
         }
 
-        if (false === \is_array($data['message']))
+        if (\is_array($data['message']) === false)
         {
             throw new \UnexpectedValueException('"message" field from serialized data should be an array');
         }
 
-        if (false === \is_string($data['namespace']))
+        if (\is_string($data['namespace']) === false)
         {
             throw new \UnexpectedValueException('"namespace" field from serialized data should be a string');
         }

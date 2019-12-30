@@ -27,6 +27,7 @@ use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithPrivateProperties;
 use function ServiceBus\Common\now;
+use function ServiceBus\Common\readReflectionPropertyValue;
 
 /**
  *
@@ -201,7 +202,7 @@ final class SymfonyMessageSerializerTest extends TestCase
     public function withWrongCharset(): void
     {
         $this->expectException(EncodeMessageFailed::class);
-        $this->expectExceptionMessage('JSON serialize failed: Malformed UTF-8 characters, possibly incorrectly encoded');
+        $this->expectExceptionMessage('Message serialization failed: Malformed UTF-8 characters, possibly incorrectly encoded');
 
         (new SymfonyMessageSerializer())->encode(
             ClassWithPrivateConstructor::create(
@@ -311,5 +312,8 @@ final class SymfonyMessageSerializerTest extends TestCase
 
         /** @var WithPrivateProperties $unserialized */
         $unserialized = $serializer->decode($serializer->encode($object));
+
+        static::assertSame('Some string', readReflectionPropertyValue($unserialized, 'qwerty'));
+        static::assertSame(100500, readReflectionPropertyValue($unserialized, 'root'));
     }
 }
