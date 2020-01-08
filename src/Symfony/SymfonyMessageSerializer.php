@@ -161,7 +161,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     }
 
     /**
-     * @psalm-assert array{message:array<string, mixed>, namespace:class-string} $data
+     * @psalm-assert array{message:array<string, string|int|float|array|null>, namespace:class-string} $data
      *
      * @throws \UnexpectedValueException
      */
