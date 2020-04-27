@@ -29,7 +29,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [];
     }

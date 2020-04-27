@@ -33,7 +33,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function instantiateObject(
         array &$data,
-        $class,
+        string $class,
         array &$context,
         \ReflectionClass $reflectionClass,
         $allowedAttributes,
@@ -69,19 +69,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
             return $object->{$attribute};
         }
 
-        try
-        {
-            return parent::getAttributeValue($object, $attribute, $format, $context);
-        }
-        catch (\Error $error)
-        {
-            if (\strpos($error->getMessage(), 'must not be accessed before initialization') !== false)
-            {
-                return null;
-            }
-
-            throw $error;
-        }
+        return parent::getAttributeValue($object, $attribute, $format, $context);
     }
 
     /**
