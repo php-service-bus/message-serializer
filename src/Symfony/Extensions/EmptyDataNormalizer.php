@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace ServiceBus\MessageSerializer\SymfonyNormalizer\Extensions;
+namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
 use function ServiceBus\Common\createWithoutConstructor;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
