@@ -29,7 +29,10 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     /**
      * {@inheritdoc}
      *
-     * @psalm-suppress MissingParamType Cannot specify data type
+     * @param array|bool $allowedAttributes
+     *
+     * @throws \ReflectionException
+     * @noinspection PhpMissingParamTypeInspection
      */
     protected function instantiateObject(
         array &$data,
@@ -64,7 +67,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
-        if (isset($object->{$attribute}) === true)
+        if (isset($object->{$attribute}))
         {
             return $object->{$attribute};
         }
@@ -79,7 +82,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = []): void
     {
-        if (isset($object->{$attribute}) === true)
+        if (isset($object->{$attribute}))
         {
             $object->{$attribute} = $value;
 

@@ -4,7 +4,8 @@
         useDocblockTypes="true"
         useDocblockPropertyTypes="true"
         allowPhpStormGenerics="true"
-        requireVoidReturnType="true"
+        strictBinaryOperands="true"
+        findUnusedPsalmSuppress="true"
         ignoreInternalFunctionFalseReturn="false"
         ignoreInternalFunctionNullReturn="false"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -19,10 +20,6 @@
     </projectFiles>
 
     <issueHandlers>
-        <PropertyNotSetInConstructor>
-            <errorLevel type="suppress">
-                <referencedProperty name="Symfony\Component\Serializer\SerializerAwareTrait::$serializer"/>
-            </errorLevel>
-        </PropertyNotSetInConstructor>
+        <PropertyNotSetInConstructor errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

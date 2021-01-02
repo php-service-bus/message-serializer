@@ -137,7 +137,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         {
             $data = $this->normalizer->normalize($message);
 
-            if (\is_array($data) === true)
+            if (\is_array($data))
             {
                 /** @psalm-var array<string, mixed> $data */
 
@@ -187,11 +187,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
             throw new \UnexpectedValueException('"namespace" field from serialized data should be a string');
         }
 
-        /**
-         * Let's check if the specified class exists.
-         *
-         * @psalm-suppress DocblockTypeContradiction
-         */
+        /** Let's check if the specified class exists. */
         if ($data['namespace'] === '' || \class_exists($data['namespace']) === false)
         {
             throw new \UnexpectedValueException(

@@ -1,7 +1,9 @@
 ## What is it?
-[![Build Status](https://travis-ci.org/php-service-bus/message-serializer.svg?branch=v4.1)](https://travis-ci.org/php-service-bus/message-serializer)
-[![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/badges/coverage.png?b=v4.1)](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/?branch=v4.1)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/badges/quality-score.png?b=v4.1)](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/?branch=v4.1)
+
+![Continuous Integration](https://github.com/php-service-bus/message-serializer/workflows/Continuous%20Integration/badge.svg)
+[![Shepherd](https://shepherd.dev/github/php-service-bus/message-serializer/coverage.svg)](https://shepherd.dev/github/php-service-bus/message-serializer)
+[![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/badges/coverage.png?b=v4.2)](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/?branch=v4.2)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/badges/quality-score.png?b=v4.2)](https://scrutinizer-ci.com/g/php-service-bus/message-serializer/?branch=v4.2)
 
 This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus). Messages serialization implementation
 
