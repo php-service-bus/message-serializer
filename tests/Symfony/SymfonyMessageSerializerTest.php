@@ -131,7 +131,7 @@ final class SymfonyMessageSerializerTest extends TestCase
     public function denormalizeToUnknownClass(): void
     {
         $this->expectException(DenormalizeFailed::class);
-        $this->expectExceptionMessage('Class "Qwerty" not exists');
+        $this->expectExceptionMessage('Class `Qwerty` not exists');
 
         /** @noinspection PhpUndefinedClassInspection */
         (new SymfonySerializer())->denormalize([], \Qwerty::class);
