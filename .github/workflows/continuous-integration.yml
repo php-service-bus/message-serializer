@@ -18,7 +18,7 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies with composer
-        run: composer install -ov
+        run: composer update --no-ansi --no-interaction --no-progress
 
       - name: Run php-cs-fixer
         run: PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --using-cache=no --verbose
@@ -38,7 +38,7 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies with composer
-        run: composer install -ov
+        run: composer update --no-ansi --no-interaction --no-progress
 
       - name: Run vimeo/psalm
         run: ./vendor/bin/psalm --config=psalm.xml --shepherd
@@ -58,7 +58,7 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies with composer
-        run: composer install -ov
+        run: composer update --no-ansi --no-interaction --no-progress
 
       - name: Run phpstan/phpstan
         run: ./vendor/bin/phpstan analyse src --level 7
@@ -88,7 +88,7 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies
-        run: composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+        run: composer update --no-ansi --no-interaction --no-progress
 
       - name: Run tests with phpunit
         run: XDEBUG_MODE=coverage php ./vendor/bin/phpunit --configuration ./phpunit.xml --coverage-clover=coverage.xml
