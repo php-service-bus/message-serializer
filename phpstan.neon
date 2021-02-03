@@ -1,11 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#in iterable type array#'
+			message: '#@return with type mixed#'
 			path: %currentWorkingDirectory%/src
-		-
-			message: '#class ReflectionClass but does not specify its types#'
-			path: %currentWorkingDirectory%/src
-		-
-			message: '#setAttributeValue#'
-			path: %currentWorkingDirectory%/src/Symfony/Extensions/PropertyNormalizerWrapper.php
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false

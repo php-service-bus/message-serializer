@@ -6,22 +6,17 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <coverage>
         <include>
-            <directory>./</directory>
+            <directory>./src</directory>
         </include>
         <exclude>
             <directory>./tests</directory>
-            <directory>./vendor</directory>
         </exclude>
     </coverage>
     <php>
         <ini name="error_reporting" value="-1"/>
     </php>
     <testsuites>
-        <testsuite name="PHP Service Bus common component">
-            <directory>./vendor/php-service-bus/common/tests</directory>
-        </testsuite>
-
-        <testsuite name="PHP Service Bus messages serializer component">
+        <testsuite name="Message serializer component">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

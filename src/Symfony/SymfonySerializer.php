@@ -3,12 +3,12 @@
 /**
  * Messages serializer implementation.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types = 0);
 
 namespace ServiceBus\MessageSerializer\Symfony;
 
@@ -23,7 +23,7 @@ use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNameConverter;
 use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNormalizerWrapper;
 use ServiceBus\MessageSerializer\Symfony\Extractor\CombinedExtractor;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\Serializer as SymfonySerializer;
+use Symfony\Component\Serializer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use function ServiceBus\Common\jsonDecode;
 use function ServiceBus\Common\jsonEncode;
@@ -31,17 +31,17 @@ use function ServiceBus\Common\jsonEncode;
 /**
  *
  */
-final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
+final class SymfonySerializer implements MessageEncoder, MessageDecoder
 {
     /**
      * Symfony normalizer\denormalizer.
      *
-     * @var SymfonySerializer\Serializer
+     * @var Serializer\Serializer
      */
     private $normalizer;
 
     /**
-     * @param SymfonySerializer\Normalizer\DenormalizerInterface[]|SymfonySerializer\Normalizer\NormalizerInterface[] $normalizers
+     * @param Serializer\Normalizer\DenormalizerInterface[]|Serializer\Normalizer\NormalizerInterface[] $normalizers
      */
     public function __construct(array $normalizers = [])
     {
@@ -49,7 +49,7 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
 
         $defaultNormalizers = [
             new DateTimeNormalizer(['datetime_format' => 'c']),
-            new SymfonySerializer\Normalizer\ArrayDenormalizer(),
+            new Serializer\Normalizer\ArrayDenormalizer(),
             new PropertyNormalizerWrapper(null, new PropertyNameConverter(), $extractor),
             new EmptyDataNormalizer(),
         ];
@@ -57,19 +57,16 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         /** @psalm-var array<array-key, (\Symfony\Component\Serializer\Normalizer\NormalizerInterface|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface)> $normalizers */
         $normalizers = \array_merge($normalizers, $defaultNormalizers);
 
-        $this->normalizer = new SymfonySerializer\Serializer($normalizers);
+        $this->normalizer = new Serializer\Serializer($normalizers);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function encode(object $message): string
     {
         try
         {
-            $data = ['message' => $this->normalize($message), 'namespace' => \get_class($message)];
-
-            return jsonEncode($data);
+            return jsonEncode(
+                $this->normalize($message)
+            );
         }
         catch (\Throwable $throwable)
         {
@@ -81,21 +78,14 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function decode(string $serializedMessage): object
+    public function decode(string $serializedMessage, string $messageClass): object
     {
         try
         {
-            $data = jsonDecode($serializedMessage);
-
-            self::validateUnserializedData($data);
-
-            /** @var object $object */
-            $object = $this->denormalize($data['message'], $data['namespace']);
-
-            return $object;
+            return $this->denormalize(
+                payload: jsonDecode($serializedMessage),
+                messageClass: $messageClass
+            );
         }
         catch (\Throwable $throwable)
         {
@@ -108,16 +98,18 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
     }
 
     /**
-     * {@inheritdoc}
+     * @template T
+     * @psalm-param class-string<T> $messageClass
+     * @psalm-return T
      */
-    public function denormalize(array $payload, string $class): object
+    public function denormalize(array $payload, string $messageClass): object
     {
         try
         {
-            /** @var object $object */
+            /** @var T $object */
             $object = $this->normalizer->denormalize(
                 $payload,
-                $class
+                $messageClass
             );
 
             return $object;
@@ -128,9 +120,6 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize(object $message): array
     {
         try
@@ -157,42 +146,6 @@ final class SymfonyMessageSerializer implements MessageEncoder, MessageDecoder
         catch (\Throwable $throwable)
         {
             throw new NormalizationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
-        }
-    }
-
-    /**
-     * @psalm-assert array{message:array<string, string|int|float|array|null>, namespace:class-string} $data
-     *
-     * @throws \UnexpectedValueException
-     */
-    private static function validateUnserializedData(array $data): void
-    {
-        /** Let's check if there are mandatory fields */
-        if (
-            isset($data['namespace']) === false ||
-            isset($data['message']) === false
-        ) {
-            throw new \UnexpectedValueException(
-                'The serialized data must contains a "namespace" field (indicates the message class) and "message" (indicates the message parameters)'
-            );
-        }
-
-        if (\is_array($data['message']) === false)
-        {
-            throw new \UnexpectedValueException('"message" field from serialized data should be an array');
-        }
-
-        if (\is_string($data['namespace']) === false)
-        {
-            throw new \UnexpectedValueException('"namespace" field from serialized data should be a string');
-        }
-
-        /** Let's check if the specified class exists. */
-        if ($data['namespace'] === '' || \class_exists($data['namespace']) === false)
-        {
-            throw new \UnexpectedValueException(
-                \sprintf('Class "%s" not found', $data['namespace'])
-            );
         }
     }
 }

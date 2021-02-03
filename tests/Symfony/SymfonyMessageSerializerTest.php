@@ -3,7 +3,7 @@
 /**
  * Messages serializer implementation.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -13,10 +13,9 @@ declare(strict_types = 1);
 namespace ServiceBus\MessageSerializer\Tests\Symfony;
 
 use PHPUnit\Framework\TestCase;
-use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
-use ServiceBus\MessageSerializer\Symfony\SymfonyMessageSerializer;
+use ServiceBus\MessageSerializer\Symfony\SymfonySerializer;
 use ServiceBus\MessageSerializer\Tests\Stubs\Author;
 use ServiceBus\MessageSerializer\Tests\Stubs\AuthorCollection;
 use ServiceBus\MessageSerializer\Tests\Stubs\ClassWithPrivateConstructor;
@@ -41,20 +40,13 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function emptyClassWithClosedConstructor(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
         $object     = EmptyClassWithPrivateConstructor::create();
 
-        $encoded = $serializer->encode($object);
-
-        $data = \json_decode($encoded, true);
-
-        static::assertArrayHasKey('message', $data);
-        static::assertArrayHasKey('namespace', $data);
-
-        static::assertEmpty($data['message']);
-        static::assertSame(EmptyClassWithPrivateConstructor::class, $data['namespace']);
-
-        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($encoded)));
+        self::assertEquals(
+            $object,
+            $serializer->decode($serializer->encode($object), EmptyClassWithPrivateConstructor::class)
+        );
     }
 
     /**
@@ -64,83 +56,18 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public static function classWithClosedConstructor(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
         $object     = ClassWithPrivateConstructor::create(__METHOD__);
 
-        static::assertSame(
+        self::assertSame(
             \get_object_vars($object),
-            \get_object_vars($serializer->decode($serializer->encode($object)))
+            \get_object_vars(
+                $serializer->decode(
+                    $serializer->encode($object),
+                    ClassWithPrivateConstructor::class
+                )
+            )
         );
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
-    public function messageNotArray(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage('"message" field from serialized data should be an array');
-
-        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue', 'namespace' => \SomeClass::class]));
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
-    public function namespaceNotString(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage('"namespace" field from serialized data should be a string');
-
-        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => [], 'namespace' => new \stdClass]));
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
-    public function classNotFound(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage('Class "SomeClass" not found');
-
-        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => [], 'namespace' => \SomeClass::class]));
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
-    public function withoutNamespace(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage(
-            'The serialized data must contains a "namespace" field (indicates the message class) and "message" '
-            . '(indicates the message parameters)'
-        );
-
-        (new SymfonyMessageSerializer())->decode(\json_encode(['message' => 'someValue']));
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
-    public function withoutPayload(): void
-    {
-        $this->expectException(DecodeMessageFailed::class);
-        $this->expectExceptionMessage(
-            'The serialized data must contains a "namespace" field (indicates the message class) and "message" (indicates the message parameters)'
-        );
-
-        (new SymfonyMessageSerializer())->decode(\json_encode(['namespace' => __CLASS__]));
     }
 
     /**
@@ -150,13 +77,13 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function withDateTime(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
         $object     = new WithDateTimeField(new \DateTimeImmutable('NOW'));
 
         /** @var WithDateTimeField $result */
-        $result = $serializer->decode($serializer->encode($object));
+        $result = $serializer->decode($serializer->encode($object), WithDateTimeField::class);
 
-        static::assertSame(
+        self::assertSame(
             $object->dateTimeValue->format('Y-m-d H:i:s'),
             $result->dateTimeValue->format('Y-m-d H:i:s')
         );
@@ -169,15 +96,31 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function wthNullableObjectArgument(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
 
         $object = WithNullableObjectArgument::withObject('qwerty', ClassWithPrivateConstructor::create('qqq'));
 
-        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($serializer->encode($object))));
+        self::assertSame(
+            \get_object_vars($object),
+            \get_object_vars(
+                $serializer->decode(
+                    $serializer->encode($object),
+                    WithNullableObjectArgument::class
+                )
+            )
+        );
 
         $object = WithNullableObjectArgument::withoutObject('qwerty');
 
-        static::assertSame(\get_object_vars($object), \get_object_vars($serializer->decode($serializer->encode($object))));
+        self::assertSame(
+            \get_object_vars($object),
+            \get_object_vars(
+                $serializer->decode(
+                    $serializer->encode($object),
+                    WithNullableObjectArgument::class
+                )
+            )
+        );
     }
 
     /**
@@ -188,10 +131,10 @@ final class SymfonyMessageSerializerTest extends TestCase
     public function denormalizeToUnknownClass(): void
     {
         $this->expectException(DenormalizeFailed::class);
-        $this->expectExceptionMessage('Class "Qwerty" not exists');
+        $this->expectExceptionMessage('Class `Qwerty` not exists');
 
         /** @noinspection PhpUndefinedClassInspection */
-        (new SymfonyMessageSerializer())->denormalize([], \Qwerty::class);
+        (new SymfonySerializer())->denormalize([], \Qwerty::class);
     }
 
     /**
@@ -204,7 +147,7 @@ final class SymfonyMessageSerializerTest extends TestCase
         $this->expectException(EncodeMessageFailed::class);
         $this->expectExceptionMessage('Message serialization failed: Malformed UTF-8 characters, possibly incorrectly encoded');
 
-        (new SymfonyMessageSerializer())->encode(
+        (new SymfonySerializer())->encode(
             ClassWithPrivateConstructor::create(
                 \iconv('utf-8', 'windows-1251', 'тест')
             )
@@ -218,7 +161,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function successFlow(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
 
         $object = TestMessage::create(
             'message-serializer',
@@ -227,9 +170,14 @@ final class SymfonyMessageSerializerTest extends TestCase
             Author::create('Vasiya', 'Pupkin')
         );
 
-        static::assertSame(
+        self::assertSame(
             \get_object_vars($object),
-            \get_object_vars($serializer->decode($serializer->encode($object)))
+            \get_object_vars(
+                $serializer->decode(
+                    $serializer->encode($object),
+                    TestMessage::class
+                )
+            )
         );
     }
 
@@ -240,17 +188,16 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function successCollection(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
 
         $object = new AuthorCollection();
 
         $object->collection[] = Author::create('qwerty', 'root');
         $object->collection[] = Author::create('root', 'qwerty');
 
-        /** @var AuthorCollection $unserialized */
-        $unserialized = $serializer->decode($serializer->encode($object));
+        $unserialized = $serializer->decode($serializer->encode($object), AuthorCollection::class);
 
-        static::assertSame(
+        self::assertSame(
             \array_map(
                 static function (Author $author): string
                 {
@@ -277,7 +224,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function legacyPropertiesSupport(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
 
         $object = new MixedWithLegacy(
             'qwerty',
@@ -285,12 +232,11 @@ final class SymfonyMessageSerializerTest extends TestCase
             100500
         );
 
-        /** @var MixedWithLegacy $unserialized */
-        $unserialized = $serializer->decode($serializer->encode($object));
+        $unserialized = $serializer->decode($serializer->encode($object), MixedWithLegacy::class);
 
-        static::assertSame($object->string, $unserialized->string);
-        static::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
-        static::assertSame($object->long, $unserialized->long);
+        self::assertSame($object->string, $unserialized->string);
+        self::assertSame($object->dateTime->getTimestamp(), $unserialized->dateTime->getTimestamp());
+        self::assertSame($object->long, $unserialized->long);
     }
 
     /**
@@ -302,7 +248,7 @@ final class SymfonyMessageSerializerTest extends TestCase
      */
     public function privateMixedPropertiesSupport(): void
     {
-        $serializer = new SymfonyMessageSerializer();
+        $serializer = new SymfonySerializer();
 
         $object = new WithPrivateProperties(
             'Some string',
@@ -310,10 +256,9 @@ final class SymfonyMessageSerializerTest extends TestCase
             now()
         );
 
-        /** @var WithPrivateProperties $unserialized */
-        $unserialized = $serializer->decode($serializer->encode($object));
+        $unserialized = $serializer->decode($serializer->encode($object), WithPrivateProperties::class);
 
-        static::assertSame('Some string', readReflectionPropertyValue($unserialized, 'qwerty'));
-        static::assertSame(100500, readReflectionPropertyValue($unserialized, 'root'));
+        self::assertSame('Some string', readReflectionPropertyValue($unserialized, 'qwerty'));
+        self::assertSame(100500, readReflectionPropertyValue($unserialized, 'root'));
     }
 }

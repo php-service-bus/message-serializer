@@ -3,12 +3,12 @@
 /**
  * Messages serializer implementation.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types = 0);
 
 namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
@@ -67,12 +67,7 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
     {
-        if (isset($object->{$attribute}))
-        {
-            return $object->{$attribute};
-        }
-
-        return parent::getAttributeValue($object, $attribute, $format, $context);
+        return $object->{$attribute} ?? parent::getAttributeValue($object, $attribute, $format, $context);
     }
 
     /**
