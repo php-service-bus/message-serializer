@@ -31,7 +31,7 @@
     "php": ">=8.0",
     "ext-json": "*",
     "ext-iconv": "*",
-    "php-service-bus/common": "v4.2.*",
+    "php-service-bus/common": "v5.0.*",
     "doctrine/annotations": "v1.11.*",
     "phpdocumentor/reflection-docblock": "v5.2.*",
     "symfony/property-access": "v5.2.*",
