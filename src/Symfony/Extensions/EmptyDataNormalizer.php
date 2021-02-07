@@ -26,17 +26,13 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
      */
     private $localStorage = [];
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function normalize($object, string $format = null, array $context = []): array
     {
         return [];
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \ReflectionException
      */
     public function supportsNormalization($data, string $format = null): bool
@@ -63,8 +59,6 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
      */
     public function denormalize($data, string $type, string $format = null, array $context = []): object
@@ -74,9 +68,6 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
         return createWithoutConstructor($type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return empty($data);

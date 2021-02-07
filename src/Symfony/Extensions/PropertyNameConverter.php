@@ -26,17 +26,11 @@ final class PropertyNameConverter implements NameConverterInterface
      */
     private $localStorage = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize(string $propertyName): string
     {
         return $propertyName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function denormalize(string $propertyName): string
     {
         if (isset($this->localStorage[$propertyName]) === false)

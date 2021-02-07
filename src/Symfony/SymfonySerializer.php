@@ -22,7 +22,6 @@ use ServiceBus\MessageSerializer\Symfony\Extensions\EmptyDataNormalizer;
 use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNameConverter;
 use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNormalizerWrapper;
 use ServiceBus\MessageSerializer\Symfony\Extractor\CombinedExtractor;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use function ServiceBus\Common\jsonDecode;
@@ -45,7 +44,7 @@ final class SymfonySerializer implements MessageEncoder, MessageDecoder
      */
     public function __construct(array $normalizers = [])
     {
-        $extractor = \PHP_VERSION_ID >= 70400 ? new CombinedExtractor() : new PhpDocExtractor();
+        $extractor = new CombinedExtractor();
 
         $defaultNormalizers = [
             new DateTimeNormalizer(['datetime_format' => 'c']),

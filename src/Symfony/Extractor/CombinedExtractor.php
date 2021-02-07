@@ -21,13 +21,19 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
  */
 final class CombinedExtractor implements PropertyTypeExtractorInterface
 {
-    /** @psalm-var array<string, \Symfony\Component\PropertyInfo\Type[]|null> */
+    /**
+     * @psalm-var array<string, \Symfony\Component\PropertyInfo\Type[]|null>
+     */
     private $localStorage = [];
 
-    /** @var PhpDocExtractor */
+    /**
+     * @var PhpDocExtractor
+     */
     private $phpDocExtractor;
 
-    /** @var ReflectionExtractor */
+    /**
+     * @var ReflectionExtractor
+     */
     private $reflectionPropertyExtractor;
 
     public function __construct()
@@ -36,9 +42,6 @@ final class CombinedExtractor implements PropertyTypeExtractorInterface
         $this->reflectionPropertyExtractor = new ReflectionExtractor();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTypes(string $class, string $property, array $context = []): ?array
     {
         $cacheKey = $class . $property;

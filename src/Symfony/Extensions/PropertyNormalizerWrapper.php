@@ -27,8 +27,6 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     private $localStorage = [];
 
     /**
-     * {@inheritdoc}
-     *
      * @param array|bool $allowedAttributes
      *
      * @throws \ReflectionException
@@ -45,9 +43,6 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function extractAttributes(object $object, string $format = null, array $context = []): array
     {
         $class = \get_class($object);
@@ -61,8 +56,6 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Error
      */
     protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
@@ -72,8 +65,6 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
 
     /**
      * @psalm-param mixed $value
-     *
-     * {@inheritdoc}
      */
     protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = []): void
     {

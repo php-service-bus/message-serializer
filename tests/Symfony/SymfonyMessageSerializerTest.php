@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 /**
  * Messages serializer implementation.
@@ -35,8 +35,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 {
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function emptyClassWithClosedConstructor(): void
     {
@@ -51,8 +49,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public static function classWithClosedConstructor(): void
     {
@@ -72,8 +68,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function withDateTime(): void
     {
@@ -91,8 +85,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function wthNullableObjectArgument(): void
     {
@@ -125,8 +117,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function denormalizeToUnknownClass(): void
     {
@@ -139,8 +129,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function withWrongCharset(): void
     {
@@ -156,8 +144,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function successFlow(): void
     {
@@ -183,8 +169,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws \Throwable
      */
     public function successCollection(): void
     {
@@ -217,10 +201,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @requires PHP >= 7.4
-     *
-     * @throws \Throwable
      */
     public function legacyPropertiesSupport(): void
     {
@@ -241,10 +221,6 @@ final class SymfonyMessageSerializerTest extends TestCase
 
     /**
      * @test
-     *
-     * @requires PHP >= 7.4
-     *
-     * @throws \Throwable
      */
     public function privateMixedPropertiesSupport(): void
     {
