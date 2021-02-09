@@ -16,8 +16,7 @@ use ServiceBus\MessageSerializer\Exceptions\DecodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\DenormalizeFailed;
 use ServiceBus\MessageSerializer\Exceptions\EncodeMessageFailed;
 use ServiceBus\MessageSerializer\Exceptions\NormalizationFailed;
-use ServiceBus\MessageSerializer\MessageDecoder;
-use ServiceBus\MessageSerializer\MessageEncoder;
+use ServiceBus\MessageSerializer\MessageSerializer;
 use ServiceBus\MessageSerializer\Symfony\Extensions\EmptyDataNormalizer;
 use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNameConverter;
 use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNormalizerWrapper;
@@ -30,7 +29,7 @@ use function ServiceBus\Common\jsonEncode;
 /**
  *
  */
-final class SymfonySerializer implements MessageEncoder, MessageDecoder
+final class SymfonySerializer implements MessageSerializer
 {
     /**
      * Symfony normalizer\denormalizer.
