@@ -146,4 +146,9 @@ final class SymfonySerializer implements MessageSerializer
             throw new NormalizationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
     }
+
+    public function contentType(): string
+    {
+        return 'application/json';
+    }
 }

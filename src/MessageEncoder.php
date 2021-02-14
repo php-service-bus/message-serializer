@@ -32,4 +32,9 @@ interface MessageEncoder
      * @throws \ServiceBus\MessageSerializer\Exceptions\NormalizationFailed Unexpected normalize result
      */
     public function normalize(object $message): array;
+
+    /**
+     * Receive encoded data content type.
+     */
+    public function contentType(): string;
 }
