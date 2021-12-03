@@ -8,13 +8,10 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
-namespace ServiceBus\MessageSerializer;
+namespace ServiceBus\MessageSerializer\Exceptions;
 
-/**
- *
- */
-interface MessageSerializer extends MessageEncoder, MessageDecoder
+final class DecodeObjectFailed extends \RuntimeException implements SerializerExceptionMarker
 {
 }

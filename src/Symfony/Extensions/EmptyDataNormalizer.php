@@ -8,13 +8,13 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
 namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
-use function ServiceBus\Common\createWithoutConstructor;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use function ServiceBus\Common\createWithoutConstructor;
 
 /**
  * Normalizer for an object without attributes (empty).
@@ -25,7 +25,6 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
      * @psalm-var array<string, array<array-key, string>>
      */
     private $localStorage = [];
-
 
     public function normalize($object, string $format = null, array $context = []): array
     {

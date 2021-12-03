@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
 namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
@@ -30,7 +30,6 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
      * @param array|bool $allowedAttributes
      *
      * @throws \ReflectionException
-     * @noinspection PhpMissingParamTypeInspection
      */
     protected function instantiateObject(
         array &$data,

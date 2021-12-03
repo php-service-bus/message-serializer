@@ -19,41 +19,48 @@
   "autoload": {
     "psr-4": {
       "ServiceBus\\MessageSerializer\\": "src/"
-    }
+    },
+    "files": [
+      "src/Symfony/functions.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
       "ServiceBus\\Common\\Tests\\": "vendor/php-service-bus/common/tests",
       "ServiceBus\\MessageSerializer\\Tests\\": "tests/"
-    }
+    },
+    "files": [
+      "src/Symfony/functions.php"
+    ]
   },
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.1",
     "ext-json": "*",
     "ext-iconv": "*",
-    "php-service-bus/common": "v5.0.*",
-    "doctrine/annotations": "v1.11.*",
-    "phpdocumentor/reflection-docblock": "v5.2.*",
-    "symfony/property-access": "v5.2.*",
-    "symfony/property-info":  "v5.2.*",
-    "symfony/serializer":  "v5.2.*"
+    "php-service-bus/common": "v5.1.*",
+    "doctrine/annotations": "v1.13.*",
+    "phpdocumentor/reflection-docblock": "v5.3.*",
+    "symfony/property-access": "v5.4.*",
+    "symfony/property-info": "v5.4.*",
+    "symfony/serializer": "v5.4.*"
   },
   "require-dev": {
-    "php-service-bus/code-style-config": "v1.3.*",
+    "php-service-bus/code-style-config": "v5.1.*",
     "phpunit/phpunit": "v9.5.*",
-    "vimeo/psalm": "v4.6.*",
-    "phpstan/phpstan": "v0.12.*"
+    "vimeo/psalm": "v4.13.*",
+    "phpstan/phpstan": "v1.2.*",
+    "boesing/psalm-plugin-stringf": "v1.1.*"
   },
   "prefer-stable": true,
   "minimum-stability": "stable",
   "scripts": {
     "psalm": "rm -rf ~/.cache/psalm/ && ./vendor/bin/psalm --config=psalm.xml",
-    "phpstan": "./vendor/bin/phpstan analyse src --level 7",
-    "tests": "./vendor/bin/phpunit --configuration phpunit.xml --debug --verbose --debug",
-    "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --configuration phpunit.xml --coverage-html ./coverage --debug --verbose --debug",
-    "cs-check": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
-    "cs-fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
-    "pre-commit": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes && ./vendor/bin/psalm --config=psalm.xml && ./vendor/bin/phpstan analyse src --level 7 && ./vendor/bin/phpunit --configuration phpunit.xml --verbose"
+    "phpstan": "./vendor/bin/phpstan analyse src --level 9",
+    "tests": "./vendor/bin/phpunit --configuration phpunit.xml --verbose --debug",
+    "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --configuration phpunit.xml --coverage-html ./coverage --verbose --debug",
+    "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
+    "cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes",
+    "pre-commit": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes && ./vendor/bin/psalm --config=psalm.xml && ./vendor/bin/phpstan analyse src --level 9 && ./vendor/bin/phpunit --configuration phpunit.xml --verbose"
   },
   "config": {
     "optimize-autoloader": true

@@ -1,7 +1,5 @@
 parameters:
-	ignoreErrors:
-		-
-			message: '#@return with type mixed#'
-			path: %currentWorkingDirectory%/src
 	checkMissingIterableValueType: false
 	checkGenericClassInNonGenericObjectType: false
+	ignoreErrors:
+		- '#Cannot cast mixed to int#'

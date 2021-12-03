@@ -8,12 +8,10 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\MessageSerializer\Tests\Stubs;
 
-/**
- */
 final class WithPrivateProperties
 {
     /**

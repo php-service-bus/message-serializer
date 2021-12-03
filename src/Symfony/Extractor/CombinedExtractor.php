@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
 namespace ServiceBus\MessageSerializer\Symfony\Extractor;
 
@@ -16,9 +16,6 @@ use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 
-/**
- *
- */
 final class CombinedExtractor implements PropertyTypeExtractorInterface
 {
     /**
