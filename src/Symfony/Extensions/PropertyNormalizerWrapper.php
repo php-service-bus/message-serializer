@@ -57,8 +57,12 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
     /**
      * @throws \Error
      */
-    protected function getAttributeValue(object $object, string $attribute, string $format = null, array $context = [])
-    {
+    protected function getAttributeValue(
+        object $object,
+        string $attribute,
+        string $format = null,
+        array $context = []
+    ): mixed {
         return $object->{$attribute} ?? parent::getAttributeValue($object, $attribute, $format, $context);
     }
 
