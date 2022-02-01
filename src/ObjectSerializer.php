@@ -17,6 +17,8 @@ interface ObjectSerializer
     /**
      * Encode message to string.
      *
+     * @psalm-return non-empty-string
+     *
      * @throws \ServiceBus\MessageSerializer\Exceptions\EncodeObjectFailed
      */
     public function encode(object $object): string;
