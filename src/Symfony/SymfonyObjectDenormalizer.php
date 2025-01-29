@@ -40,11 +40,8 @@ final class SymfonyObjectDenormalizer implements ObjectDenormalizer
      */
     public function handle(array $payload, string $objectClass): object
     {
-        try
-        {
+        try {
             /**
-             * @noinspection PhpUnnecessaryLocalVariableInspection
-             *
              * @psalm-var T $object
              */
             $object = $this->normalizer->denormalize(
@@ -53,9 +50,7 @@ final class SymfonyObjectDenormalizer implements ObjectDenormalizer
             );
 
             return $object;
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             throw new DenormalizeFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
     }

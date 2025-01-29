@@ -17,6 +17,7 @@ use ServiceBus\MessageSerializer\Exceptions\EncodeObjectFailed;
 use ServiceBus\MessageSerializer\ObjectDenormalizer;
 use ServiceBus\MessageSerializer\ObjectNormalizer;
 use ServiceBus\MessageSerializer\ObjectSerializer;
+
 use function ServiceBus\Common\jsonDecode;
 use function ServiceBus\Common\jsonEncode;
 
@@ -40,14 +41,11 @@ final class SymfonyJsonObjectSerializer implements ObjectSerializer
 
     public function encode(object $object): string
     {
-        try
-        {
+        try {
             return jsonEncode(
                 $this->normalizer->handle($object)
             );
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             throw new EncodeObjectFailed(
                 \sprintf('Object `%s` serialization failed: %s', \get_class($object), $throwable->getMessage()),
                 (int) $throwable->getCode(),
@@ -58,15 +56,12 @@ final class SymfonyJsonObjectSerializer implements ObjectSerializer
 
     public function decode(string $serializedObject, string $objectClass): object
     {
-        try
-        {
+        try {
             return $this->denormalizer->handle(
                 payload: jsonDecode($serializedObject),
                 objectClass: $objectClass
             );
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             throw new DecodeObjectFailed(
                 \sprintf('Object `%s` deserialization failed: %s', $objectClass, $throwable->getMessage()),
                 (int) $throwable->getCode(),

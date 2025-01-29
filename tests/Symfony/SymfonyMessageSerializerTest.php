@@ -29,6 +29,7 @@ use ServiceBus\MessageSerializer\Tests\Stubs\TestMessage;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithDateTimeField;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithNullableObjectArgument;
 use ServiceBus\MessageSerializer\Tests\Stubs\WithPrivateProperties;
+
 use function ServiceBus\Common\jsonDecode;
 use function ServiceBus\Common\now;
 use function ServiceBus\Common\readReflectionPropertyValue;
@@ -150,7 +151,7 @@ final class SymfonyMessageSerializerTest extends TestCase
     public function denormalizeToUnknownClass(): void
     {
         $this->expectException(DenormalizeFailed::class);
-        $this->expectExceptionMessage('Class `Qwerty` not exists');
+        $this->expectExceptionMessage('Could not denormalize object of type "Qwerty", no supporting normalizer found');
 
         /** @noinspection PhpUndefinedClassInspection */
         $this->denormalizer->handle([], \Qwerty::class);
@@ -208,15 +209,13 @@ final class SymfonyMessageSerializerTest extends TestCase
 
         self::assertSame(
             \array_map(
-                static function (Author $author): string
-                {
+                static function (Author $author): string {
                     return $author->firstName;
                 },
                 $object->collection
             ),
             \array_map(
-                static function (Author $author): string
-                {
+                static function (Author $author): string {
                     return $author->firstName;
                 },
                 $unserialized->collection

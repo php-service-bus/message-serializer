@@ -12,6 +12,11 @@ declare(strict_types=0);
 
 namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 
 /**
@@ -19,16 +24,65 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
  *
  * @noinspection LongInheritanceChainInspection
  */
-final class PropertyNormalizerWrapper extends PropertyNormalizer
+final class PropertyNormalizerWrapper extends AbstractObjectNormalizer
 {
+    private PropertyNormalizer $propertyNormalizer;
+
     /**
      * @psalm-var array<string, array<array-key, string>>
      */
-    private $localStorage = [];
+    private array $localStorage = [];
+
+    public function __construct(
+        ?ClassMetadataFactoryInterface $classMetadataFactory = null,
+        ?NameConverterInterface $nameConverter = null,
+        ?PropertyTypeExtractorInterface $propertyTypeExtractor = null,
+        ?ClassDiscriminatorResolverInterface $classDiscriminatorResolver = null,
+        ?callable $objectClassResolver = null,
+        array $defaultContext = [],
+    ) {
+        parent::__construct(
+            $classMetadataFactory,
+            $nameConverter,
+            $propertyTypeExtractor,
+            $classDiscriminatorResolver,
+            $objectClassResolver,
+            $defaultContext
+        );
+
+        $this->propertyNormalizer = new PropertyNormalizer(
+            $classMetadataFactory,
+            $nameConverter,
+            $propertyTypeExtractor,
+            $classDiscriminatorResolver,
+            $objectClassResolver,
+            $defaultContext
+        );
+    }
 
     /**
-     * @param array|bool $allowedAttributes
-     *
+     * @psalm-suppress LessSpecificImplementedReturnType
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['object' => true];
+    }
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return $this->propertyNormalizer->supportsNormalization($data, $format, $context);
+    }
+
+    public function supportsDenormalization(
+        mixed $data,
+        string $type,
+        ?string $format = null,
+        array $context = [],
+    ): bool {
+        return $this->propertyNormalizer->supportsDenormalization($data, $type, $format, $context);
+    }
+
+    /**
      * @throws \ReflectionException
      */
     protected function instantiateObject(
@@ -36,48 +90,78 @@ final class PropertyNormalizerWrapper extends PropertyNormalizer
         string $class,
         array &$context,
         \ReflectionClass $reflectionClass,
-        $allowedAttributes,
-        string $format = null
+        array|bool $allowedAttributes,
+        string $format = null,
     ): object {
         return $reflectionClass->newInstanceWithoutConstructor();
     }
 
-    protected function extractAttributes(object $object, string $format = null, array $context = []): array
+    protected function isAllowedAttribute(
+        object|string $classOrObject,
+        string $attribute,
+        ?string $format = null,
+        array $context = [],
+    ): bool {
+        $reflMethod = new \ReflectionMethod($this->propertyNormalizer, 'isAllowedAttribute');
+
+        /** @var bool $result */
+        $result = $reflMethod->invoke($this->propertyNormalizer, $classOrObject, $attribute, $format, $context);
+
+        return $result;
+    }
+
+    protected function extractAttributes(object $object, ?string $format = null, array $context = []): array
     {
         $class = \get_class($object);
 
-        if (\array_key_exists($class, $this->localStorage) === false)
-        {
-            $this->localStorage[$class] = parent::extractAttributes($object, $format, $context);
+        if (\array_key_exists($class, $this->localStorage) === false) {
+            $reflMethod = new \ReflectionMethod($this->propertyNormalizer, 'extractAttributes');
+
+            /** @var string[] $result */
+            $result = $reflMethod->invoke(
+                $this->propertyNormalizer,
+                $object,
+                $format,
+                $context
+            );
+
+            $this->localStorage[$class] = $result;
         }
 
         return $this->localStorage[$class];
     }
 
-    /**
-     * @throws \Error
-     */
     protected function getAttributeValue(
         object $object,
         string $attribute,
-        string $format = null,
-        array $context = []
+        ?string $format = null,
+        array $context = [],
     ): mixed {
-        return $object->{$attribute} ?? parent::getAttributeValue($object, $attribute, $format, $context);
+        $reflMethod = new \ReflectionMethod($this->propertyNormalizer, 'getAttributeValue');
+
+        return $object->{$attribute} ?? $reflMethod->invoke(
+            $this->propertyNormalizer,
+            $object,
+            $attribute,
+            $format,
+            $context
+        );
     }
 
-    /**
-     * @psalm-param mixed $value
-     */
-    protected function setAttributeValue(object $object, string $attribute, $value, string $format = null, array $context = []): void
-    {
-        if (isset($object->{$attribute}))
-        {
+    protected function setAttributeValue(
+        object $object,
+        string $attribute,
+        mixed $value,
+        ?string $format = null,
+        array $context = [],
+    ): void {
+        if (isset($object->{$attribute})) {
             $object->{$attribute} = $value;
 
             return;
         }
 
-        parent::setAttributeValue($object, $attribute, $value, $format, $context);
+        $reflMethod = new \ReflectionMethod($this->propertyNormalizer, 'setAttributeValue');
+        $reflMethod->invoke($this->propertyNormalizer, $object, $attribute, $value, $format, $context);
     }
 }

@@ -24,6 +24,7 @@ use ServiceBus\MessageSerializer\Symfony\Extensions\PropertyNormalizerWrapper;
 use ServiceBus\MessageSerializer\Symfony\Extractor\CombinedExtractor;
 use Symfony\Component\Serializer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+
 use function ServiceBus\Common\jsonDecode;
 use function ServiceBus\Common\jsonEncode;
 

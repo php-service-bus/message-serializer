@@ -14,6 +14,7 @@ namespace ServiceBus\MessageSerializer\Symfony\Extensions;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function ServiceBus\Common\createWithoutConstructor;
 
 /**
@@ -26,7 +27,7 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
      */
     private $localStorage = [];
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize(mixed $data, string $format = null, array $context = []): array
     {
         return [];
     }
@@ -34,18 +35,15 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     /**
      * @throws \ReflectionException
      */
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        if (\is_object($data))
-        {
+        if (\is_object($data)) {
             $class = \get_class($data);
 
-            if (isset($this->localStorage[$class]) === false)
-            {
+            if (isset($this->localStorage[$class]) === false) {
                 $this->localStorage[$class] = \array_map(
-                    static function (\ReflectionProperty $property): string
-                    {
-                        return (string) $property->name;
+                    static function (\ReflectionProperty $property): string {
+                        return $property->name;
                     },
                     (new \ReflectionClass($data))->getProperties()
                 );
@@ -63,12 +61,21 @@ final class EmptyDataNormalizer implements NormalizerInterface, DenormalizerInte
     public function denormalize($data, string $type, string $format = null, array $context = []): object
     {
         /** @psalm-var class-string $type */
-
         return createWithoutConstructor($type);
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return empty($data);
+    }
+
+    /**
+     * @psalm-suppress LessSpecificImplementedReturnType
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            'object' => false
+        ];
     }
 }

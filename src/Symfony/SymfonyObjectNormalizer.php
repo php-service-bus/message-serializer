@@ -28,12 +28,10 @@ final class SymfonyObjectNormalizer implements ObjectNormalizer
 
     public function handle(object $object): array
     {
-        try
-        {
+        try {
             $data = $this->normalizer->normalize($object);
 
-            if (\is_array($data))
-            {
+            if (\is_array($data)) {
                 /** @psalm-var array<array-key, mixed> $data */
 
                 return $data;
@@ -48,9 +46,7 @@ final class SymfonyObjectNormalizer implements ObjectNormalizer
                 )
             );
             // @codeCoverageIgnoreEnd
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             throw new NormalizationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
         }
     }

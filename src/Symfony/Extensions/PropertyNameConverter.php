@@ -26,19 +26,17 @@ final class PropertyNameConverter implements NameConverterInterface
      */
     private $localStorage = [];
 
-    public function normalize(string $propertyName): string
+    public function normalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
     {
         return $propertyName;
     }
 
-    public function denormalize(string $propertyName): string
+    public function denormalize(string $propertyName, ?string $class = null, ?string $format = null, array $context = []): string
     {
-        if (isset($this->localStorage[$propertyName]) === false)
-        {
+        if (isset($this->localStorage[$propertyName]) === false) {
             $joinedString = \preg_replace_callback(
                 '/_(.?)/',
-                static function (array $matches): string
-                {
+                static function (array $matches): string {
                     return \ucfirst($matches[1]);
                 },
                 $propertyName

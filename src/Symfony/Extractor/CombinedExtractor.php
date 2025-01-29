@@ -43,12 +43,10 @@ final class CombinedExtractor implements PropertyTypeExtractorInterface
     {
         $cacheKey = $class . $property;
 
-        if (\array_key_exists($cacheKey, $this->localStorage) === false)
-        {
+        if (\array_key_exists($cacheKey, $this->localStorage) === false) {
             $types = $this->phpDocExtractor->getTypes($class, $property, $context);
 
-            if ($types === null)
-            {
+            if ($types === null) {
                 $types = $this->reflectionPropertyExtractor->getTypes($class, $property, $context);
             }
 
