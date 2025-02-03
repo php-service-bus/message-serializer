@@ -37,7 +37,7 @@
     "php": ">=8.2",
     "ext-json": "*",
     "ext-iconv": "*",
-    "php-service-bus/common": "v5.2.x-dev",
+    "php-service-bus/common": "v5.2.*",
     "doctrine/annotations": "^1.13 || ^2.0",
     "phpdocumentor/reflection-docblock": "^5.5",
     "symfony/property-access": "^6.3 || ^7.0",
@@ -45,7 +45,7 @@
     "symfony/serializer": "^6.3 || ^7.0"
   },
   "require-dev": {
-    "php-service-bus/code-style-config": "v5.2.x-dev",
+    "php-service-bus/code-style-config": "v5.2.*",
     "phpunit/phpunit": "^10.0 || ^11.0",
     "vimeo/psalm": "^4.30 || ^5.4",
     "phpstan/phpstan": "^1.12 || ^2.0"
